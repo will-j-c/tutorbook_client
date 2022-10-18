@@ -4,10 +4,12 @@ import SideNav from './SideNav';
 import { useState } from 'react';
 
 function PageNavbar() {
-  const [open, setOpen] = useState(true);
+
+  const [open, setOpen] = useState(false);
   const handleClick = () => {
-    setOpen(true)
-  }
+    setOpen(true);
+  };
+
   return (
     <header aria-label="Site Header" className="bg-primary">
       <div className="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8">
@@ -33,10 +35,12 @@ function PageNavbar() {
           <div className="flex items-center gap-4">
             <div className="sm:flex sm:gap-4 hidden md:block">
               <FilledButton label="Sign Up" />
-              <OutlinedButton label="Login" />
+              <OutlinedButton label="Login" linkTo={"/login"} />
             </div>
 
-            <button className="block rounded p-2.5 text-titleText transition hover:text-gray-600/75 md:hidden" onClick={handleClick}>
+            <button
+              className="block rounded p-2.5 text-titleText transition hover:text-gray-600/75 md:hidden"
+              onClick={handleClick}>
               <span className="sr-only">Toggle menu</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

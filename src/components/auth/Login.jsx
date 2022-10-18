@@ -1,33 +1,30 @@
+import { Link } from 'react-router-dom';
+import FilledButton from '../buttons/FilledButton';
+
 function Login() {
   return (
-    <div class="h-screen flex">
-      <div
-        class="hidden lg:flex w-full lg:w-1/2 login_img_section
-          justify-around items-center">
-        <div
-          class=" 
-                  bg-black 
-                  opacity-20 
-                  inset-0 
-                  z-0"></div>
-        <div class="w-full mx-auto px-20 flex-col items-center space-y-6">
-          <h1 class="text-white font-bold text-4xl font-sans">Simple App</h1>
-          <p class="text-white mt-1">The simplest app to use</p>
-          <div class="flex justify-center lg:justify-start mt-6">
-            <a
-              href="#"
-              class="hover:bg-indigo-700 hover:text-white hover:-translate-y-1 transition-all duration-500 bg-white text-indigo-800 mt-4 px-4 py-2 rounded-2xl font-bold mb-2">
-              Get Started
-            </a>
-          </div>
-        </div>
+    <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 text-titleText">
+      <div class="mx-auto max-w-lg text-center">
+        <h1 class="text-2xl font-bold sm:text-3xl">Login</h1>
+
+        <p class="mt-4">
+          Don't have an account?{' '}
+          <span className="text-secondaryTitleText">
+            <Link>Register</Link>
+          </span>
+        </p>
       </div>
-      <div class="flex w-full lg:w-1/2 justify-center items-center bg-white space-y-8">
-        <div class="w-full px-8 md:px-32 lg:px-24">
-          <form class="bg-white rounded-md shadow-2xl p-5">
-            <h1 class="text-gray-800 font-bold text-2xl mb-1">Hello Again!</h1>
-            <p class="text-sm font-normal text-gray-600 mb-8">Welcome Back</p>
-            <div class="flex items-center border-2 mb-8 py-2 px-3 rounded-2xl">
+
+      <form action="" class="mx-auto mt-8 mb-0 max-w-md space-y-4">
+        <div>
+          <div class="relative">
+            <input
+              type="email"
+              class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
+              placeholder="Enter email"
+            />
+
+            <span class="absolute inset-y-0 right-4 inline-flex items-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 class="h-5 w-5 text-gray-400"
@@ -35,59 +32,58 @@ function Login() {
                 viewBox="0 0 24 24"
                 stroke="currentColor">
                 <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
                   d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
                 />
               </svg>
-              <input
-                id="email"
-                class=" pl-2 w-full outline-none border-none"
-                type="email"
-                name="email"
-                placeholder="Email Address"
-              />
-            </div>
-            <div class="flex items-center border-2 mb-12 py-2 px-3 rounded-2xl ">
+            </span>
+          </div>
+        </div>
+
+        <div>
+          <div class="relative">
+            <input
+              type="password"
+              class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
+              placeholder="Enter password"
+            />
+
+            <span class="absolute inset-y-0 right-4 inline-flex items-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 class="h-5 w-5 text-gray-400"
-                viewBox="0 0 20 20"
-                fill="currentColor">
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor">
                 <path
-                  fillRule="evenodd"
-                  d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                  clipRule="evenodd"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
                 />
               </svg>
-              <input
-                class="pl-2 w-full outline-none border-none"
-                type="password"
-                name="password"
-                id="password"
-                placeholder="Password"
-              />
-            </div>
-            <button
-              type="submit"
-              class="block w-full bg-indigo-600 mt-5 py-2 rounded-2xl hover:bg-indigo-700 hover:-translate-y-1 transition-all duration-500 text-white font-semibold mb-2">
-              Login
-            </button>
-            <div class="flex justify-between mt-4">
-              <span class="text-sm ml-2 hover:text-blue-500 cursor-pointer hover:-translate-y-1 duration-500 transition-all">
-                Forgot Password ?
-              </span>
-
-              <a
-                href="#"
-                class="text-sm ml-2 hover:text-blue-500 cursor-pointer hover:-translate-y-1 duration-500 transition-all">
-                Don't have an account yet?
-              </a>
-            </div>
-          </form>
+            </span>
+          </div>
         </div>
-      </div>
+
+        <div class="flex column items-center flex-col justify-between">
+          <FilledButton label="Login" />
+          <p class="mt-4 text-center md:text-left">
+            Forgotten password?{' '}
+            <span className="text-secondaryTitleText block md:inline">
+              <Link>Password reset</Link>
+            </span>
+          </p>
+        </div>
+      </form>
     </div>
   );
 }
