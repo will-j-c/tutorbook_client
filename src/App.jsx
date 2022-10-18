@@ -1,9 +1,16 @@
-import TutorCard from "./cards/TutorCard";
+import LoginRegister from "./components/pages/LoginRegister"
+import PageNavbar from "./components/navbar/Navbar";
+import { Routes, Route } from "react-router-dom";
+
 function App() {
   return (
-    <div className="text-bodyText">
-      <TutorCard />
-    </div>
+    <>
+    <PageNavbar className="bg-primary" />
+    <Routes>
+      <Route path="/login" element={LoginRegister}/>
+    </Routes>
+    </>
+    
   );
 }
 
