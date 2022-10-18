@@ -1,19 +1,20 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 import FilledButton from '../buttons/FilledButton';
 
 function Login() {
   const [emailText, setEmailText] = useState('');
   const [passwordText, setPasswordText] = useState('');
-
+  const { loginWithRedirect } = useAuth0();
   const handleChange = (event) => {
     event.preventDefault();
     if (event.target.type === 'password') {
-      setPasswordText(event.target.value)
+      setPasswordText(event.target.value);
       return;
     }
     if (event.target.type === 'email') {
-      setEmailText(event.target.value)
+      setEmailText(event.target.value);
       return;
     }
   };
@@ -93,7 +94,7 @@ function Login() {
         </div>
 
         <div class="flex column items-center flex-col justify-between">
-          <FilledButton label="Login" />
+          <FilledButton label="Login" action={() => loginWithRedirect()} />
           <p class="mt-4 text-center md:text-left">
             Forgotten password?{' '}
             <span className="text-secondaryTitleText block md:inline">
