@@ -1,7 +1,23 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import FilledButton from '../buttons/FilledButton';
 
 function Login() {
+  const [emailText, setEmailText] = useState('');
+  const [passwordText, setPasswordText] = useState('');
+
+  const handleChange = (event) => {
+    event.preventDefault();
+    if (event.target.type === 'password') {
+      setPasswordText(event.target.value)
+      return;
+    }
+    if (event.target.type === 'email') {
+      setEmailText(event.target.value)
+      return;
+    }
+  };
+
   return (
     <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 text-titleText">
       <div class="mx-auto max-w-lg text-center">
@@ -15,19 +31,20 @@ function Login() {
         </p>
       </div>
 
-      <form action="" class="mx-auto mt-8 mb-0 max-w-md space-y-4">
+      <form class="mx-auto mt-8 mb-0 max-w-md space-y-4">
         <div>
           <div class="relative">
             <input
               type="email"
-              class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
+              class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm placeholder:text-primary"
               placeholder="Enter email"
+              onChange={handleChange}
             />
 
             <span class="absolute inset-y-0 right-4 inline-flex items-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5 text-gray-400"
+                class="h-5 w-5 text-primary"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor">
@@ -46,14 +63,15 @@ function Login() {
           <div class="relative">
             <input
               type="password"
-              class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
+              class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm placeholder:text-primary"
               placeholder="Enter password"
+              onChange={handleChange}
             />
 
             <span class="absolute inset-y-0 right-4 inline-flex items-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5 text-gray-400"
+                class="h-5 w-5 text-primary"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor">
