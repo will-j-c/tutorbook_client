@@ -4,7 +4,7 @@ import SideNav from './SideNav';
 import { useState } from 'react';
 
 function PageNavbar() {
-  const isAuthenticated = true
+  const isAuthenticated = false;
   
   const handleClick = () => {
     setOpen(true);
@@ -17,7 +17,7 @@ function PageNavbar() {
     <FilledButton label="Logout" action={handleLogout} />
   ) : (
     <>
-      <FilledButton label="Sign Up" />
+      <FilledButton label="Sign Up" linkTo={'/register'}/>
       <OutlinedButton label="Login" linkTo={'/login'} />
     </>
   );

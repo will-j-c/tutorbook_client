@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from '../../firebaseConfig';
 import FilledButton from '../utils/buttons/FilledButton';
 
 function Login() {
-  const auth = getAuth()
+  const authUser = auth;
+  console.log(authUser)
   const [emailText, setEmailText] = useState('');
   const [passwordText, setPasswordText] = useState('');
   const [user, setUser] = useState('')

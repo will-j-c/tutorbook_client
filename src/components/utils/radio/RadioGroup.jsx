@@ -1,65 +1,50 @@
+import { useState } from 'react';
+
 function RadioGroup(props) {
-  const { label, linkTo, action } = props;
+  const { handleChange } = props;
+  const [option, setOption] = useState(null);
+  const checkChange = (event) => {
+    setOption(event.target.name)
+    handleChange(event);
+  };
+
   return (
-    <div className='grid grid-cols-2 gap-8'>
-      <div className='relative'>
-        <input
-          className='group peer hidden'
-          type='radio'
-          name='shippingOption'
-          value='standard_alt'
-          id='standard_alt'
-        />
-
-        <label
-          className='block cursor-pointer rounded-lg border border-gray-100 p-4 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500'
-          htmlFor='standard_alt'>
-          <span> Standard </span>
-
-          <span className='mt-1 block text-xs text-gray-500'> Free </span>
-        </label>
-
-        <svg
-          className='absolute top-4 right-4 h-5 w-5 text-blue-600 opacity-0 peer-checked:opacity-100'
-          xmlns='http://www.w3.org/2000/svg'
-          viewBox='0 0 20 20'
-          fill='currentColor'>
-          <path
-            fillRule='evenodd'
-            d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z'
-            clipRule='evenodd'
+    <div
+      role="radiogroup"
+      className="mx-auto py-4 flex justify-center font-bold"
+      >
+      <div className="flex items-center">
+        <div className="bg-background rounded-full w-4 h-4 flex flex-shrink-0 justify-center items-center relative">
+          <input
+            checked={option === 'tutor'}
+            onChange={checkChange}
+            aria-labelledby="tutor"
+            type="radio"
+            name="tutor"
+            className="checkbox appearance-none focus:opacity-100 focus:ring-2 focus:ring-offset-2 focus:bg-primary focus:outline-none border rounded-full border-gray-400 absolute cursor-pointer w-full h-full checked:border-none"
           />
-        </svg>
+          <div className="check-icon hidden border-4 border-indigo-700 rounded-full w-full h-full z-1"></div>
+        </div>
+        <label id="label1" className="ml-2 text-sm leading-4 text-titleText">
+          Tutor
+        </label>
       </div>
 
-      <div className='relative'>
-        <input
-          className='group peer hidden'
-          type='radio'
-          name='shippingOption'
-          value='next_day_alt'
-          id='next_day_alt'
-        />
-
-        <label
-          className='block cursor-pointer rounded-lg border border-gray-100 p-4 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500'
-          htmlFor='next_day_alt'>
-          <span> Next Day </span>
-
-          <span className='mt-1 block text-xs text-gray-500'> $ 5.99 </span>
-        </label>
-
-        <svg
-          className='absolute top-4 right-4 h-5 w-5 text-blue-600 opacity-0 peer-checked:opacity-100'
-          xmlns='http://www.w3.org/2000/svg'
-          viewBox='0 0 20 20'
-          fill='currentColor'>
-          <path
-            fillRule='evenodd'
-            d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z'
-            clipRule='evenodd'
+      <div className="flex items-center ml-6">
+        <div className="bg-background rounded-full w-4 h-4 flex flex-shrink-0 justify-center items-center relative">
+          <input
+            checked={option === 'default'}
+            onChange={checkChange}
+            aria-labelledby="default"
+            type="radio"
+            name="default"
+            className="checkbox appearance-none focus:opacity-100 focus:ring-2 focus:ring-offset-2 focus:bg-primary focus:outline-none border rounded-full border-gray-400 absolute cursor-pointer w-full h-full checked:border-none"
           />
-        </svg>
+          <div className="check-icon hidden border-4 border-indigo-700 rounded-full w-full h-full z-1"></div>
+        </div>
+        <label id="label2" className="ml-2 text-sm leading-4 text-titleText">
+          User
+        </label>
       </div>
     </div>
   );
