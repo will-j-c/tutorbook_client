@@ -2,13 +2,27 @@ import FilledButton from '../buttons/FilledButton';
 import OutlinedButton from '../buttons/OutlinedButton';
 import SideNav from './SideNav';
 import { useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 
 function PageNavbar() {
-
-  const [open, setOpen] = useState(false);
+  const { isAuthenticated, logout } = useAuth0();
   const handleClick = () => {
     setOpen(true);
   };
+
+  const handleLogout = () => {
+    logout({ returnTo: window.location.origin });
+  };
+  const isSignedInRight = isAuthenticated ? (
+    <FilledButton label="Logout" action={handleLogout} />
+  ) : (
+    <>
+      <FilledButton label="Sign Up" />
+      <OutlinedButton label="Login" linkTo={'/login'} />
+    </>
+  );
+
+  const [open, setOpen] = useState(false);
 
   return (
     <header aria-label="Site Header" className="bg-primary">
@@ -33,10 +47,7 @@ function PageNavbar() {
           </nav>
 
           <div className="flex items-center gap-4">
-            <div className="sm:flex sm:gap-4 hidden md:block">
-              <FilledButton label="Sign Up" />
-              <OutlinedButton label="Login" linkTo={"/login"} />
-            </div>
+            <div className="sm:flex sm:gap-4 hidden md:block">{isSignedInRight}</div>
 
             <button
               className="block rounded p-2.5 text-titleText transition hover:text-gray-600/75 md:hidden"
