@@ -1,17 +1,17 @@
-import FilledButton from '../buttons/FilledButton';
-import OutlinedButton from '../buttons/OutlinedButton';
+import FilledButton from '../utils/buttons/FilledButton';
+import OutlinedButton from '../utils/buttons/OutlinedButton';
 import SideNav from './SideNav';
 import { useState } from 'react';
-import { useAuth0 } from '@auth0/auth0-react';
 
 function PageNavbar() {
-  const { isAuthenticated, logout } = useAuth0();
+  const isAuthenticated = true
+  
   const handleClick = () => {
     setOpen(true);
   };
 
   const handleLogout = () => {
-    logout({ returnTo: window.location.origin });
+    //
   };
   const isSignedInRight = isAuthenticated ? (
     <FilledButton label="Logout" action={handleLogout} />
@@ -59,8 +59,8 @@ function PageNavbar() {
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
-                stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
             <SideNav open={open} setOpen={setOpen} />

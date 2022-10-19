@@ -1,13 +1,14 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import FilledButton from '../utils/buttons/FilledButton';
+import RadioGroup from '../utils/radio/RadioGroup';
 
-function Login() {
-  const auth = getAuth()
+function Register() {
+  //   const auth = getAuth()
   const [emailText, setEmailText] = useState('');
   const [passwordText, setPasswordText] = useState('');
-  const [user, setUser] = useState('')
+  const [user, setUser] = useState('');
 
   const handleChange = (event) => {
     event.preventDefault();
@@ -21,26 +22,25 @@ function Login() {
     }
   };
 
-  const login = async () => {
+  const register = async () => {
     try {
-      const user = await signInWithEmailAndPassword(auth, emailText, passwordText)
-      console.log(user)
-      setUser(user)
-    } catch(error) {
-      console.log(error)
+      //   const user = await signInWithEmailAndPassword(auth, emailText, passwordText)
+      //   console.log(user)
+      //   setUser(user)
+    } catch (error) {
+      console.log(error);
     }
-    
-  }
-  
+  };
+
   return (
     <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 text-titleText">
       <div className="mx-auto max-w-lg text-center">
-        <h1 className="text-2xl font-bold sm:text-3xl">Login</h1>
+        <h1 className="text-2xl font-bold sm:text-3xl">Create account</h1>
 
         <p className="mt-4">
-          Don't have an account?{' '}
+          Already have an account?{' '}
           <span className="text-secondaryTitleText">
-            <Link>Register</Link>
+            <Link>Login</Link>
           </span>
         </p>
       </div>
@@ -105,9 +105,12 @@ function Login() {
             </span>
           </div>
         </div>
+        
+          <RadioGroup />
+        
 
         <div className="flex column items-center flex-col justify-between">
-          <FilledButton label="Login" action={login} />
+          <FilledButton label="Register" action={register} />
           <p className="mt-4 text-center md:text-left">
             Forgotten password?{' '}
             <span className="text-secondaryTitleText block md:inline">
@@ -120,4 +123,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;
