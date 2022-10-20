@@ -11,6 +11,7 @@ function TutorCard(props) {
     published,
     published_at,
     subjects,
+    tutor_uuid,
     updated_at,
     user
   } = props.tutor;
@@ -68,7 +69,7 @@ function TutorCard(props) {
       </div>
       <div className="flex justify-end gap-2 px-6 my-4">
         <OutlinedButton label="Message" className='h'/>
-        <FilledButton label="View" />
+        <FilledButton label="View" linkTo={tutor_uuid}/>
       </div>
     </div>
   );

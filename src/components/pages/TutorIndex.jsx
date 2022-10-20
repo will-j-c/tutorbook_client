@@ -12,6 +12,7 @@ function TutorIndex(props) {
   const callTutorIndexRoute = (route) => {
     axios.get(route).then(
       (response) => {
+        console.log(response)
         setData(response.data.results);
         setNext(response.data.next);
         setPrevious(response.data.previous);
