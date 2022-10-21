@@ -9,10 +9,8 @@ function TutorCard(props) {
     locations,
     looking_for_assignment,
     published,
-    published_at,
     subjects,
     tutor_uuid,
-    updated_at,
     user
   } = props.tutor;
   const isFull = props?.isFull;
@@ -55,21 +53,46 @@ function TutorCard(props) {
                   })}
                 </div>
               </div>
+
               <div className="grid-container grid grid-cols-6 text-xs">
-                <p className="text-secondaryTitleText mr-3 col-span-2">Levels</p>
+                <p className="text-secondaryTitleText mr-3 col-span-2">Levels taught</p>
                 <div className="w-max grid grid-cols-2 gap-1 text-left">
                   {levels.map((level) => {
                     return <div key={level?.level_name}>{`${level?.level_name}`}</div>;
                   })}
                 </div>
               </div>
+
+              {isFull ? (
+                <>
+                  <div className="grid-container grid grid-cols-6 text-xs">
+                    <p className="text-secondaryTitleText mr-3 col-span-2">About me</p>
+                    <p className="w-max text-left">{about_me}</p>
+                  </div>
+                  <div className="grid-container grid grid-cols-6 text-xs">
+                    <p className="text-secondaryTitleText mr-3 col-span-2">Average rating</p>
+                    <p className="w-max text-left">rating</p>
+                  </div>
+                </>
+              ) : (
+                ''
+              )}
             </div>
           </div>
         </div>
       </div>
       <div className="flex justify-end gap-2 px-6 my-4">
-        <OutlinedButton label="Message" className='h'/>
-        <FilledButton label="View" linkTo={tutor_uuid}/>
+        {isFull ? (
+          <>
+            <OutlinedButton label="Review" />
+            <FilledButton label="Message" />
+          </>
+        ) : (
+          <>
+            <OutlinedButton label="Message" />
+            <FilledButton label="View" linkTo={tutor_uuid} />
+          </>
+        )}
       </div>
     </div>
   );
