@@ -6,7 +6,6 @@ import FilledButton from '../utils/buttons/FilledButton';
 import RadioGroup from '../utils/radio/RadioGroup';
 
 function Register() {
-  const authUser = auth;
   const [emailText, setEmailText] = useState('');
   const [passwordText, setPasswordText] = useState('');
   const [user, setUser] = useState('');
@@ -14,7 +13,6 @@ function Register() {
 
   const handleChange = (event) => {
     event.preventDefault();
-    console.log(event.target)
     if (event.target.type === 'password') {
       setPasswordText(event.target.value);
       return;
@@ -24,18 +22,19 @@ function Register() {
       return;
     }
     if (event.target.type === 'radio') {
-        setUserType(event.target.name);
-        return;
+      setUserType(event.target.name);
+      return;
     }
   };
 
   const register = async () => {
     try {
-      //   const user = await signInWithEmailAndPassword(auth, emailText, passwordText)
-      //   console.log(user)
+      console.log(auth);
+      const user = await createUserWithEmailAndPassword(auth, emailText, passwordText);
+      console.log(user);
       //   setUser(user)
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   };
 

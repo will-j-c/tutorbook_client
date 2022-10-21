@@ -1,18 +1,28 @@
 import FilledButton from '../utils/buttons/FilledButton';
 import OutlinedButton from '../utils/buttons/OutlinedButton';
 import SideNav from './SideNav';
+import { signOut, onAuthStateChanged } from 'firebase/auth';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { auth } from '../../firebaseConfig';
 
 function PageNavbar() {
-  const isAuthenticated = false;
+  const [isAuthenticated, setIsAuthenticated] = useState(auth.currentUser);
+
+  onAuthStateChanged(auth, (user) => {
+    if(user) {
+      setIsAuthenticated(true);
+    } else {
+      setIsAuthenticated(false);
+    }
+  });
 
   const handleClick = () => {
     setOpen(true);
   };
 
   const handleLogout = () => {
-    //
+    signOut(auth);
   };
   const isSignedInRight = isAuthenticated ? (
     <FilledButton label="Logout" action={handleLogout} />

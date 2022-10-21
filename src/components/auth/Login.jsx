@@ -5,11 +5,8 @@ import { auth } from '../../firebaseConfig';
 import FilledButton from '../utils/buttons/FilledButton';
 
 function Login() {
-  const authUser = auth;
-  console.log(authUser)
   const [emailText, setEmailText] = useState('');
   const [passwordText, setPasswordText] = useState('');
-  const [user, setUser] = useState('')
 
   const handleChange = (event) => {
     event.preventDefault();
@@ -25,9 +22,7 @@ function Login() {
 
   const login = async () => {
     try {
-      const user = await signInWithEmailAndPassword(auth, emailText, passwordText)
-      console.log(user)
-      setUser(user)
+      await signInWithEmailAndPassword(auth, emailText, passwordText);
     } catch(error) {
       console.log(error)
     }
