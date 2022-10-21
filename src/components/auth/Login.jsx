@@ -1,13 +1,15 @@
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { useState, useContext } from 'react';
+import { LoadingContext } from '../../App';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebaseConfig';
 import FilledButton from '../utils/buttons/FilledButton';
+import { toast } from 'react-toastify';
 
-function Login() {
+function Login(props) {
   const [emailText, setEmailText] = useState('');
   const [passwordText, setPasswordText] = useState('');
-
+  const { setIsLoading } = useContext(LoadingContext);
   const handleChange = (event) => {
     event.preventDefault();
     if (event.target.type === 'password') {
@@ -22,13 +24,16 @@ function Login() {
 
   const login = async () => {
     try {
+      setIsLoading(true);
       await signInWithEmailAndPassword(auth, emailText, passwordText);
-    } catch(error) {
-      console.log(error)
+      setIsLoading(false);
+      toast('Hello');
+    } catch (error) {
+      setIsLoading(false);
+      toast.error('Something went wrong');
     }
-    
-  }
-  
+  };
+
   return (
     <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 text-titleText">
       <div className="mx-auto max-w-lg text-center">

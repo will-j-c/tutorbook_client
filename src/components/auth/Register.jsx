@@ -5,7 +5,8 @@ import { auth } from '../../firebaseConfig';
 import FilledButton from '../utils/buttons/FilledButton';
 import RadioGroup from '../utils/radio/RadioGroup';
 
-function Register() {
+function Register(props) {
+  const{notify} = props;
   const [emailText, setEmailText] = useState('');
   const [passwordText, setPasswordText] = useState('');
   const [user, setUser] = useState('');
