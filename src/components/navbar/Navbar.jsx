@@ -2,10 +2,11 @@ import FilledButton from '../utils/buttons/FilledButton';
 import OutlinedButton from '../utils/buttons/OutlinedButton';
 import SideNav from './SideNav';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function PageNavbar() {
   const isAuthenticated = false;
-  
+
   const handleClick = () => {
     setOpen(true);
   };
@@ -17,7 +18,7 @@ function PageNavbar() {
     <FilledButton label="Logout" action={handleLogout} />
   ) : (
     <>
-      <FilledButton label="Sign Up" linkTo={'/register'}/>
+      <FilledButton label="Sign Up" linkTo={'/register'} />
       <OutlinedButton label="Login" linkTo={'/login'} />
     </>
   );
@@ -37,11 +38,11 @@ function PageNavbar() {
           <nav aria-label="Site Nav" className="hidden md:block">
             <ul className="flex items-center gap-6 text-sm">
               <li>
-                <a
+                <Link
                   className="text-titleText font-bold transition text-sm hover:text-titleText/75"
-                  href="/">
+                  to="/tutors">
                   Browse Tutors
-                </a>
+                </Link>
               </li>
             </ul>
           </nav>

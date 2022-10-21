@@ -1,11 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 function OutlinedButton(props) {
-  const { label, linkTo } = props;
+  const { label, linkTo, action } = props;
   return (
     <Link
       className="inline-block border border-titleText rounded px-6 py-3 text-base font-bold text-titleText hover:bg-transparent hover:bg-tertiary/25"
-      to={linkTo}>
+      to={linkTo}
+      onClick={action}>
       {label}
     </Link>
   );

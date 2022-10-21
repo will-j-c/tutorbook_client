@@ -1,57 +1,75 @@
-function TutorCard() {
+import FilledButton from '../utils/buttons/FilledButton';
+import OutlinedButton from '../utils/buttons/OutlinedButton';
+
+function TutorCard(props) {
+  const {
+    about_me,
+    created_at,
+    levels,
+    locations,
+    looking_for_assignment,
+    published,
+    published_at,
+    subjects,
+    tutor_uuid,
+    updated_at,
+    user
+  } = props.tutor;
+  const isFull = props?.isFull;
   return (
-    <div className="relative max-w-md mx-auto md:max-w-2xl mt-6 min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-xl mt-16">
+    <div className="relative bg-primary text-titleText max-w-md mx-auto md:max-w-2xl min-w-0 break-words w-full mb-6 shadow-lg rounded-md mt-16">
       <div className="px-6">
         <div className="flex flex-wrap justify-center">
           <div className="w-full flex justify-center">
-            <div className="relative">
+            <div className="relative flex justify-center">
               <img
-                src="https://github.com/creativetimofficial/soft-ui-dashboard-tailwind/blob/main/build/assets/img/team-2.jpg?raw=true"
-                className="shadow-xl rounded-full align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-[150px]"
+                src={user.profile_img_url}
+                alt="Tutor"
+                className="shadow-xl rounded-full align-middle border border-tertiary -m-14 absolute max-w-[100px]"
               />
             </div>
           </div>
-          <div className="w-full text-center mt-20">
-            <div className="flex justify-center lg:pt-4 pt-8 pb-0">
-              <div className="p-3 text-center">
-                <span className="text-xl font-bold block uppercase tracking-wide text-slate-700">
-                  3,360
-                </span>
-                <span className="text-sm text-slate-400">Photos</span>
-              </div>
-              <div className="p-3 text-center">
-                <span className="text-xl font-bold block uppercase tracking-wide text-slate-700">
-                  2,454
-                </span>
-                <span className="text-sm text-slate-400">Followers</span>
-              </div>
-
-              <div className="p-3 text-center">
-                <span className="text-xl font-bold block uppercase tracking-wide text-slate-700">
-                  564
-                </span>
-                <span className="text-sm text-slate-400">Following</span>
-              </div>
-            </div>
-          </div>
+          <div className="w-full text-center mt-10"></div>
         </div>
         <div className="text-center mt-2">
-          <h3 className="text-2xl text-slate-700 font-bold leading-normal mb-1">Mike Thompson</h3>
-          <div className="text-xs mt-0 mb-2 text-slate-400 font-bold uppercase">
-            <i className="fas fa-map-marker-alt mr-2 text-slate-400 opacity-75"></i>Paris, France
-          </div>
+          <h3 className="text-2xl text-secondaryTitleText font-bold leading-normal mb-1">
+            {user.first_name}
+          </h3>
         </div>
-        <div className="mt-6 py-6 border-t border-slate-200 text-center">
-          <div className="flex flex-wrap justify-center">
-            <div className="w-full px-4">
-              <p className="font-light leading-relaxed text-slate-600 mb-4">
-                An artist of considerable range, Mike is the name taken by Melbourne-raised,
-                Brooklyn-based Nick Murphy writes, performs and records all of his own music, giving
-                it a warm.
-              </p>
+        <div className="mt-6">
+          <div className="flex flex-col justify-between">
+            <div className="w-full flex flex-col justify-between gap-3">
+              <div className="grid-container grid grid-cols-6 text-xs">
+                <p className="text-secondaryTitleText mr-3 col-span-2">Locations</p>
+                <div className="w-max grid grid-cols-2 gap-1 text-left">
+                  {locations.map((location) => {
+                    return <div key={location?.location_name}>{`${location?.location_name}`}</div>;
+                  })}
+                </div>
+              </div>
+              <div className="grid-container grid grid-cols-6 text-xs">
+                <p className="text-secondaryTitleText mr-3 col-span-2">Subjects</p>
+                <div className="w-max grid grid-cols-2 gap-1 text-left">
+                  {subjects.map((subject) => {
+                    return <div key={subject?.subject_name}>{`${subject?.subject_name}`}</div>;
+                  })}
+                </div>
+              </div>
+              <div className="grid-container grid grid-cols-6 text-xs">
+                <p className="text-secondaryTitleText mr-3 col-span-2">Levels</p>
+                <div className="w-max grid grid-cols-2 gap-1 text-left">
+                  {levels.map((level) => {
+                    return <div key={level?.level_name}>{`${level?.level_name}`}</div>;
+                  })}
+                </div>
+              </div>
             </div>
           </div>
         </div>
+      </div>
+      <div className="flex justify-end gap-2 px-6 my-4">
+        <OutlinedButton label="Message" className='h'/>
+        <FilledButton label="View" linkTo={tutor_uuid}/>
       </div>
     </div>
   );
