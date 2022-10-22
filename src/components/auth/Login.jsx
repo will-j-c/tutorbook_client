@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useState, useContext } from 'react';
-import { LoadingContext } from '../../App';
+import { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebaseConfig';
 import FilledButton from '../utils/buttons/FilledButton';
@@ -9,7 +8,8 @@ import { toast } from 'react-toastify';
 function Login(props) {
   const [emailText, setEmailText] = useState('');
   const [passwordText, setPasswordText] = useState('');
-  const { setIsLoading } = useContext(LoadingContext);
+  const { setLoading } = props;
+
   const handleChange = (event) => {
     event.preventDefault();
     if (event.target.type === 'password') {
@@ -24,13 +24,13 @@ function Login(props) {
 
   const login = async () => {
     try {
-      setIsLoading(true);
+      setLoading(true);
       await signInWithEmailAndPassword(auth, emailText, passwordText);
-      setIsLoading(false);
-      toast('Hello');
+      setLoading(false);
+      toast.success('Successfully logged in');
     } catch (error) {
-      setIsLoading(false);
-      toast.error('Something went wrong');
+      setLoading(false);
+      toast.error(error.message);
     }
   };
 

@@ -1,8 +1,4 @@
-function Loading(props) {
-  const { isLoading } = props;
-  if (!isLoading) {
-    return '';
-  }
+function Loading() {
   return (
     <div className="absolute bg-primary bg-opacity-60 z-10 h-full w-full flex items-center justify-center">
       <div className="flex items-center">
