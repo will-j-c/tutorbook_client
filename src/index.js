@@ -6,6 +6,7 @@ import TutorIndex from './components/pages/TutorIndex';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import TutorShow from './components/pages/TutorShow';
+import UserProfile from './components/pages/UserProfile';
 import App from './App';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -20,6 +21,9 @@ root.render(
           <Route path="tutors">
             <Route index element={<TutorIndex />} />
             <Route path=":uuid" element={<TutorShow />} />
+          </Route>
+          <Route path="users">
+            <Route path=":uuid" element={<UserProfile />} />
           </Route>
         </Route>
       </Routes>

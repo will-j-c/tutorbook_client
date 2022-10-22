@@ -1,10 +1,11 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebaseConfig';
 import FilledButton from '../utils/buttons/FilledButton';
 import RadioGroup from '../utils/radio/RadioGroup';
 import { toast } from 'react-toastify';
+import  axios  from '../../api/axios';
 
 function Register(props) {
   const { setLoading } = props;
@@ -14,6 +15,7 @@ function Register(props) {
   const [userType, setUserType] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastname, setLastName] = useState('');
+  const navigate = useNavigate();
 
   const form = {
     first_name: firstName,
@@ -40,11 +42,18 @@ function Register(props) {
       errors.push('Please enter a valid email');
     }
     // Password length and content
-    if (!passwordText.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)) {
+    if (!passwordText.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/)) {
       errors.push('Passwords must be 8 characters long and contain at least 1 number and 1 letter');
     }
     // All fields complete
-    if (passwordText.length === 0 || confirmPasswordText.length === 0 || emailText.length === 0 || firstName.length === 0 || lastname.length === 0 || userType.length === 0) {
+    if (
+      passwordText.length === 0 ||
+      confirmPasswordText.length === 0 ||
+      emailText.length === 0 ||
+      firstName.length === 0 ||
+      lastname.length === 0 ||
+      userType.length === 0
+    ) {
       errors.push('Please complete all fields');
     }
     return errors;
@@ -83,7 +92,7 @@ function Register(props) {
 
     const errors = validation();
 
-    if (errors) {
+    if (errors.length) {
       errors.forEach((error) => {
         toast.error(error);
       });
@@ -92,9 +101,11 @@ function Register(props) {
     }
 
     try {
+      const user = await axios.post('/users/', form);
       await createUserWithEmailAndPassword(auth, emailText.toLowerCase(), passwordText);
       setLoading(false);
       toast.success('Account successfully created');
+      navigate(`/users/${user.data.user_uuid}`);
     } catch (error) {
       setLoading(false);
       toast.error(error.message);
