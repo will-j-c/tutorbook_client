@@ -1,6 +1,7 @@
 import FilledButton from '../utils/buttons/FilledButton';
 import OutlinedButton from '../utils/buttons/OutlinedButton';
 import SideNav from './SideNav';
+import UserDropdown from './UserDropdown';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -25,7 +26,7 @@ function PageNavbar() {
     signOut(auth);
   };
   const isSignedInRight = isAuthenticated ? (
-    <FilledButton label="Logout" action={handleLogout} />
+    <UserDropdown />
   ) : (
     <>
       <FilledButton label="Sign Up" linkTo={'/register'} />
