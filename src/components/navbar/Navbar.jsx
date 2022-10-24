@@ -10,7 +10,7 @@ function PageNavbar() {
   const [isAuthenticated, setIsAuthenticated] = useState(auth.currentUser);
 
   onAuthStateChanged(auth, (user) => {
-    if(user) {
+    if (user) {
       setIsAuthenticated(true);
     } else {
       setIsAuthenticated(false);
@@ -38,12 +38,14 @@ function PageNavbar() {
   return (
     <header aria-label="Site Header" className="bg-primary">
       <div className="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto flex gap-2 items-center">
-          <img src="/logo.png" className="object-contain h-6 w-6" alt="Logo" />
-          <h5 className="text-secondaryTitleText font-bold transition text-sm hover:text-titleText-500/75">
-            TutorBook
-          </h5>
-        </div>
+        <Link to={'/'}>
+          <div className="mx-auto flex gap-2 items-center">
+            <img src="/logo.png" className="object-contain h-6 w-6" alt="Logo" />
+            <h5 className="text-secondaryTitleText font-bold transition text-sm hover:text-titleText-500/75">
+              TutorBook
+            </h5>
+          </div>
+        </Link>
         <div className="flex flex-1 items-center justify-end md:justify-between">
           <nav aria-label="Site Nav" className="hidden md:block">
             <ul className="flex items-center gap-6 text-sm">
