@@ -16,7 +16,7 @@ function Home(props) {
           </p>
           <p>Sign up now to begin.</p>
           <div className='text-center flex flex-col gap-5'>
-            <FilledButton label="I'm a tutor" />
+            <FilledButton label="I'm a tutor" linkTo='/how-it-works' />
             <FilledButton label="I'm looking for a tutor" linkTo='/tutors' />
           </div>
         </div>
