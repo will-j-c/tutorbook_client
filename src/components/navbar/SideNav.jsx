@@ -33,7 +33,7 @@ function SideNav(props) {
             </header>
 
             <nav className="flex flex-col divide-y divide-gray-200 text-sm font-bold">
-              <Link href="" className="pr-6 py-3 text-titleText font-bold transition text-sm focus:text-titleText/75">
+              <Link className="pr-6 py-3 text-titleText font-bold transition text-sm focus:text-titleText/75">
                 Browse Tutors
               </Link>
             </nav>

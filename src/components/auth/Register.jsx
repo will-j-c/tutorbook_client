@@ -1,22 +1,80 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebaseConfig';
 import FilledButton from '../utils/buttons/FilledButton';
 import RadioGroup from '../utils/radio/RadioGroup';
+import { toast } from 'react-toastify';
+import  axios  from '../../api/axios';
 
-function Register() {
-  const authUser = auth;
+function Register(props) {
+  const { setLoading } = props;
   const [emailText, setEmailText] = useState('');
   const [passwordText, setPasswordText] = useState('');
-  const [user, setUser] = useState('');
+  const [confirmPasswordText, setConfirmPasswordText] = useState('');
   const [userType, setUserType] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastname, setLastName] = useState('');
+  const navigate = useNavigate();
+
+  const form = {
+    first_name: firstName,
+    last_name: lastname,
+    email: emailText.toLowerCase(),
+    email_is_verified: false,
+    user_type: userType
+  };
+
+  const validation = () => {
+    const errors = [];
+    // Passwords match
+    if (!(passwordText === confirmPasswordText)) {
+      errors.push('Passwords do not match');
+    }
+    // Valid email
+    if (
+      !emailText
+        .toLowerCase()
+        .match(
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        )
+    ) {
+      errors.push('Please enter a valid email');
+    }
+    // Password length and content
+    if (!passwordText.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/)) {
+      errors.push('Passwords must be 8 characters long and contain at least 1 number and 1 letter');
+    }
+    // All fields complete
+    if (
+      passwordText.length === 0 ||
+      confirmPasswordText.length === 0 ||
+      emailText.length === 0 ||
+      firstName.length === 0 ||
+      lastname.length === 0 ||
+      userType.length === 0
+    ) {
+      errors.push('Please complete all fields');
+    }
+    return errors;
+  };
 
   const handleChange = (event) => {
     event.preventDefault();
-    console.log(event.target)
-    if (event.target.type === 'password') {
+    if (event.target.name === 'firstName') {
+      setFirstName(event.target.value);
+      return;
+    }
+    if (event.target.name === 'lastName') {
+      setLastName(event.target.value);
+      return;
+    }
+    if (event.target.name === 'password') {
       setPasswordText(event.target.value);
+      return;
+    }
+    if (event.target.name === 'confirmPassword') {
+      setConfirmPasswordText(event.target.value);
       return;
     }
     if (event.target.type === 'email') {
@@ -24,18 +82,33 @@ function Register() {
       return;
     }
     if (event.target.type === 'radio') {
-        setUserType(event.target.name);
-        return;
+      setUserType(event.target.name);
+      return;
     }
   };
 
   const register = async () => {
+    setLoading(true);
+
+    const errors = validation();
+
+    if (errors.length) {
+      errors.forEach((error) => {
+        toast.error(error);
+      });
+      setLoading(false);
+      return;
+    }
+
     try {
-      //   const user = await signInWithEmailAndPassword(auth, emailText, passwordText)
-      //   console.log(user)
-      //   setUser(user)
+      const user = await axios.post('/users/', form);
+      await createUserWithEmailAndPassword(auth, emailText.toLowerCase(), passwordText);
+      setLoading(false);
+      toast.success('Account successfully created');
+      navigate(`/users/${user.data.user_uuid}`);
     } catch (error) {
-      console.log(error);
+      setLoading(false);
+      toast.error(error.message);
     }
   };
 
@@ -59,6 +132,7 @@ function Register() {
               type="text"
               className="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm placeholder:text-primary"
               placeholder="First name"
+              name="firstName"
               onChange={handleChange}
             />
           </div>
@@ -67,6 +141,7 @@ function Register() {
               type="text"
               className="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm placeholder:text-primary"
               placeholder="Last name"
+              name="lastName"
               onChange={handleChange}
             />
           </div>
@@ -105,6 +180,7 @@ function Register() {
                 type="password"
                 className="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm placeholder:text-primary"
                 placeholder="Enter password"
+                name="password"
                 onChange={handleChange}
               />
 
@@ -135,6 +211,7 @@ function Register() {
                 type="password"
                 className="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm placeholder:text-primary"
                 placeholder="Confirm password"
+                name="confirmPassword"
                 onChange={handleChange}
               />
 

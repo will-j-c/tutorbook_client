@@ -20,7 +20,7 @@ function RadioGroup(props) {
             onChange={checkChange}
             aria-labelledby="tutor"
             type="radio"
-            name="tutor"
+            name="2"
             className="checkbox appearance-none focus:opacity-100 focus:ring-2 focus:ring-offset-2 focus:bg-primary focus:outline-none border rounded-full border-gray-400 absolute cursor-pointer w-full h-full checked:border-none"
           />
           <div className="check-icon hidden border-4 border-indigo-700 rounded-full w-full h-full z-1"></div>
@@ -37,7 +37,7 @@ function RadioGroup(props) {
             onChange={checkChange}
             aria-labelledby="default"
             type="radio"
-            name="default"
+            name="1"
             className="checkbox appearance-none focus:opacity-100 focus:ring-2 focus:ring-offset-2 focus:bg-primary focus:outline-none border rounded-full border-gray-400 absolute cursor-pointer w-full h-full checked:border-none"
           />
           <div className="check-icon hidden border-4 border-indigo-700 rounded-full w-full h-full z-1"></div>
