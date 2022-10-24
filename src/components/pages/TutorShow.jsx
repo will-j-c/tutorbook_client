@@ -1,25 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { getIdTokenAndSendRequest, auth } from '../../firebaseConfig';
 import axios from '../../api/axios';
 import TutorCard from '../cards/TutorCard';
 
 function TutorShow(props) {
   const [data, setData] = useState(null);
   const { uuid } = useParams();
-  const callTutorDetailRoute = (route) => {
-    axios.get(route).then(
-      (response) => {
-        console.log(response.data);
-        setData(response.data);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  };
 
   useEffect(() => {
-    callTutorDetailRoute(`tutors/${uuid}`);
+    getIdTokenAndSendRequest(`tutors/${uuid}`, 'get', setData);
   }, []);
 
   return data ? <TutorCard tutor={data} isFull={true} /> : '';
