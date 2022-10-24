@@ -2,39 +2,17 @@ import FilledButton from '../utils/buttons/FilledButton';
 import OutlinedButton from '../utils/buttons/OutlinedButton';
 import SideNav from './SideNav';
 import UserDropdown from './UserDropdown';
-import { signOut, onAuthStateChanged } from 'firebase/auth';
-import { useState } from 'react';
+import UserContext from '../utils/users/UserContext';
+import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { auth } from '../../firebaseConfig';
 
 function PageNavbar() {
-  const [isAuthenticated, setIsAuthenticated] = useState(auth.currentUser);
-
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      setIsAuthenticated(true);
-    } else {
-      setIsAuthenticated(false);
-    }
-  });
+  const { user } = useContext(UserContext);
+  const [sidenavIsOpen, setSidenavIsOpen] = useState(false);
 
   const handleClick = () => {
-    setOpen(true);
+    setSidenavIsOpen(true);
   };
-
-  const handleLogout = () => {
-    signOut(auth);
-  };
-  const isSignedInRight = isAuthenticated ? (
-    <UserDropdown />
-  ) : (
-    <>
-      <FilledButton label="Sign Up" linkTo={'/register'} />
-      <OutlinedButton label="Login" linkTo={'/login'} />
-    </>
-  );
-
-  const [open, setOpen] = useState(false);
 
   return (
     <header aria-label="Site Header" className="bg-primary">
@@ -60,9 +38,17 @@ function PageNavbar() {
             </ul>
           </nav>
 
-          <div className="flex items-center gap-4">
-            <div className="sm:flex sm:gap-4 hidden md:block">{isSignedInRight}</div>
-
+          <div className="flex items-center">
+            <div className="sm:flex hidden">
+              {user ? (
+                <UserDropdown />
+              ) : (
+                <>
+                  <FilledButton label="Sign Up" linkTo={'/register'} />
+                  <OutlinedButton label="Login" linkTo={'/login'} />
+                </>
+              )}
+            </div>
             <button
               className="block rounded p-2.5 text-titleText transition hover:text-gray-600/75 md:hidden"
               onClick={handleClick}>
@@ -77,7 +63,7 @@ function PageNavbar() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
-            <SideNav open={open} setOpen={setOpen} />
+            <SideNav open={sidenavIsOpen} setOpen={setSidenavIsOpen} />
           </div>
         </div>
       </div>

@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Avatar from '../avatars/Avatar';
+import LogOutButton from '../utils/buttons/LogoutButton';
 
 function UserDropdown() {
   const [open, setOpen] = useState(false);
@@ -14,15 +16,26 @@ function UserDropdown() {
         </div>
         {open ? (
           <div
-            className="absolute right-0 z-10 mt-4 w-56 origin-top-right rounded-md border bg-primary shadow-lg"
+            className="absolute right-0 z-10 mt-3 origin-top-right text-right rounded-md border bg-primary shadow-lg"
             role="menu">
             <div className="p-2">
-              <a
+              <Link
                 href="#"
                 className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
                 role="menuitem">
                 Profile
-              </a>
+              </Link>
+            </div>
+            <div className="p-2">
+              <Link
+                href="#"
+                className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+                role="menuitem">
+                Messages
+              </Link>
+            </div>
+            <div className="p-2">
+              <LogOutButton setOpen={setOpen} />
             </div>
           </div>
         ) : (

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import TutorCard from '../cards/TutorCard';
 import FilledButton from '../utils/buttons/FilledButton';
 import OutlinedButton from '../utils/buttons/OutlinedButton';
+import { toast } from 'react-toastify';
 
 function TutorIndex(props) {
   const [data, setData] = useState(null);
@@ -12,13 +13,12 @@ function TutorIndex(props) {
   const callTutorIndexRoute = (route) => {
     axios.get(route).then(
       (response) => {
-        console.log(response)
         setData(response.data.results);
         setNext(response.data.next);
         setPrevious(response.data.previous);
       },
       (error) => {
-        console.log(error);
+        toast.error(error.message);
       }
     );
   };

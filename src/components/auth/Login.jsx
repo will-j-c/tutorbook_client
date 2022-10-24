@@ -1,11 +1,13 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import { retrieveTokenAndCreatePrivateAxiosInstance } from '../../api/axios';
 import { auth } from '../../firebaseConfig';
 import FilledButton from '../utils/buttons/FilledButton';
 import { toast } from 'react-toastify';
 
 function Login(props) {
+  const navigate = useNavigate();
   const [emailText, setEmailText] = useState('');
   const [passwordText, setPasswordText] = useState('');
   const { setLoading } = props;
@@ -25,7 +27,11 @@ function Login(props) {
   const login = async () => {
     try {
       setLoading(true);
-      await signInWithEmailAndPassword(auth, emailText, passwordText);
+      const firebaseUser = await signInWithEmailAndPassword(auth, emailText, passwordText);
+      const axios = await retrieveTokenAndCreatePrivateAxiosInstance(auth)
+      const dbUser = await axios.get(`/users/${firebaseUser.user.email}`);
+      console.log(dbUser)
+      navigate(`/users/${dbUser.data.user_uuid}`);
       setLoading(false);
       toast.success('Successfully logged in');
     } catch (error) {
