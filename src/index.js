@@ -8,6 +8,7 @@ import Register from './components/auth/Register';
 import TutorShow from './components/pages/TutorShow';
 import UserProfile from './components/pages/UserProfile';
 import Home from './components/pages/Home';
+import HowItWorks from './components/pages/HowItWorks';
 import App from './App';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -17,6 +18,7 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>
+          <Route path="how-it-works" element={<HowItWorks />} />
           <Route path="login" element={<LoginRegister component={<Login />} />} />
           <Route path="register" element={<LoginRegister component={<Register />} />} />
           <Route path="tutors">
