@@ -39,14 +39,14 @@ function TutorIndex(props) {
 
   return (
     <>
-      <section className="bg-background mt-4 sm:grid sm:grid-cols-2 gap-4 px-6">
+      <section className="bg-background mt-4 md:grid md:grid-cols-2 flex flex-col gap-4 px-6">
         {!data
           ? ''
           : data.map((assignment, idx) => {
               return <AssignmentCard assignment={assignment} key={idx} />;
             })}
       </section>
-      <div className="flex justify-end gap-4 px-6">
+      <div className="flex justify-end gap-4 px-6 mt-5">
         {previous ? <OutlinedButton label="Previous" action={previousPage} /> : ''}
         <FilledButton label="Next" action={nextPage} />
       </div>

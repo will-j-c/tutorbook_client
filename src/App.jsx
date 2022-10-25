@@ -22,6 +22,8 @@ function App() {
       setUser(user);
     } else {
       setUser(null);
+      setProfile_img_url(null);
+      setUuid(null);
     }
   });
 

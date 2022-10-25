@@ -4,7 +4,7 @@ function OutlinedButton(props) {
   const { label, linkTo, action } = props;
   return (
     <Link
-      className="inline-block border border-titleText rounded px-6 py-3 text-base font-bold text-titleText hover:bg-transparent hover:bg-tertiary/25"
+      className="inline-block border border-titleText rounded px-3 py-1 text-titleText hover:bg-transparent hover:bg-tertiary/25"
       to={linkTo}
       onClick={action}>
       {label}
