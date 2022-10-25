@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 
 function PageNavbar() {
   const { user } = useContext(UserContext);
+  
   const [sidenavIsOpen, setSidenavIsOpen] = useState(false);
 
   const handleClick = () => {
@@ -33,6 +34,13 @@ function PageNavbar() {
                   className="text-titleText font-bold transition text-sm hover:text-titleText/75"
                   to="/tutors">
                   Browse Tutors
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="text-titleText font-bold transition text-sm hover:text-titleText/75"
+                  to="/assignments">
+                  Browse Assignments
                 </Link>
               </li>
             </ul>

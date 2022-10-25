@@ -25,8 +25,6 @@ function App() {
     }
   });
 
-  
-
   return (
     <UserContext.Provider
       value={{ user, setUser, uuid, setUuid, profile_img_url, setProfile_img_url }}>
@@ -34,14 +32,11 @@ function App() {
       <Outlet />
       <ToastContainer
         position="bottom-left"
-        autoClose={4000}
+        autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
         rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
         theme="light"
       />
     </UserContext.Provider>

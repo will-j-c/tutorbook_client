@@ -6,7 +6,9 @@ import UserContext from '../utils/users/UserContext';
 
 function UserDropdown() {
   const [open, setOpen] = useState(false);
-  const { uuid, profile_img_url } = useContext(UserContext);
+
+  const { uuid } = useContext(UserContext);
+  
   const handleClick = () => {
     setOpen((prevState) => !prevState);
   };
@@ -15,7 +17,7 @@ function UserDropdown() {
     <div className="inline-flex items-stretch rounded-md text-titleText">
       <div className="relative hover:cursor-pointer">
         <div onClick={handleClick}>
-          <Avatar profile_img_url={profile_img_url} size={'h-12'}/>
+          <Avatar size={'h-12'}/>
         </div>
         {open ? (
           <div
