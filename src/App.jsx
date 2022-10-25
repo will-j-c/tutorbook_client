@@ -12,15 +12,24 @@ function App() {
     const user = auth.currentUser;
     return user;
   });
+
+  const [uuid, setUuid] = useState('');
+
+  const [profile_img_url, setProfile_img_url] = useState('');
+
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      setUser(auth.currentUser);
+      setUser(user);
     } else {
       setUser(null);
     }
   });
+
+  
+
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider
+      value={{ user, setUser, uuid, setUuid, profile_img_url, setProfile_img_url }}>
       <PageNavbar className="bg-primary" />
       <Outlet />
       <ToastContainer

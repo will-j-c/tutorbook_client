@@ -1,12 +1,14 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useContext, useState } from 'react';
+import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { retrieveTokenAndCreatePrivateAxiosInstance } from '../../api/axios';
 import { auth } from '../../firebaseConfig';
 import FilledButton from '../utils/buttons/FilledButton';
 import { toast } from 'react-toastify';
+import UserContext from '../utils/users/UserContext';
 
 function Login(props) {
+  const { setUuid, setProfile_img_url } = useContext(UserContext);
   const navigate = useNavigate();
   const [emailText, setEmailText] = useState('');
   const [passwordText, setPasswordText] = useState('');
@@ -28,9 +30,15 @@ function Login(props) {
     try {
       setLoading(true);
       const firebaseUser = await signInWithEmailAndPassword(auth, emailText, passwordText);
-      const axios = await retrieveTokenAndCreatePrivateAxiosInstance(auth)
+      const axios = await retrieveTokenAndCreatePrivateAxiosInstance(firebaseUser.user);
       const dbUser = await axios.get(`/users/${firebaseUser.user.email}`);
-      console.log(dbUser)
+      if (!dbUser) {
+        signOut(auth);
+        toast.error('Could not sign in');
+        return;
+      }
+      setUuid(dbUser.data.user_uuid);
+      setProfile_img_url(dbUser.data.profile_img_url);
       navigate(`/users/${dbUser.data.user_uuid}`);
       setLoading(false);
       toast.success('Successfully logged in');

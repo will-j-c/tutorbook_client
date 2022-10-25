@@ -1,28 +1,33 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { auth } from '../../firebaseConfig';
 import { retrieveTokenAndCreatePrivateAxiosInstance } from '../../api/axios';
 import { toast } from 'react-toastify';
+import UserContext from '../utils/users/UserContext';
+import UserProfileCard from '../cards/UserProfileCard';
 
 function UserProfile(props) {
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
   const [data, setData] = useState(null);
   const { uuid } = useParams();
 
   const callUserDetailRoute = async (route) => {
-    console.log(auth)
-    const axios = await retrieveTokenAndCreatePrivateAxiosInstance(auth);
+    const axios = await retrieveTokenAndCreatePrivateAxiosInstance(user);
     if (!axios) {
       toast.error('Could not get user details');
       navigate('/login');
       return;
     }
+
     axios.get(route).then(
       (response) => {
         setData(response.data);
+        return;
       },
       (error) => {
-        console.log(error);
+        toast.error(error.message);
+        navigate('/login');
+        return;
       }
     );
   };
@@ -31,7 +36,13 @@ function UserProfile(props) {
     callUserDetailRoute(`users/${uuid}`);
   }, []);
 
-  return data ? <h1>This is working</h1> : <h1>This isn't working</h1>;
+  return data ? (
+    <div className="container flex justify-center">
+      <UserProfileCard data={data} />
+    </div>
+  ) : (
+    <h1>User Profile isn't working</h1>
+  );
 }
 
 export default UserProfile;
