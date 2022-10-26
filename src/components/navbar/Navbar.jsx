@@ -5,10 +5,10 @@ import UserDropdown from './UserDropdown';
 import UserContext from '../utils/users/UserContext';
 import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 function PageNavbar() {
-  const { user } = useContext(UserContext);
-  
+  const cookies = useCookies();
   const [sidenavIsOpen, setSidenavIsOpen] = useState(false);
 
   const handleClick = () => {
@@ -48,7 +48,7 @@ function PageNavbar() {
 
           <div className="flex items-center">
             <div className="sm:flex hidden">
-              {user ? (
+              {cookies[0].signedIn ? (
                 <UserDropdown />
               ) : (
                 <>

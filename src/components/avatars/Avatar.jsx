@@ -1,14 +1,15 @@
 import { useContext } from 'react';
 import UserContext from '../utils/users/UserContext';
+import { useCookies } from 'react-cookie';
 
 function Avatar(props) {
   const { size } = props;
-  const { profile_img_url } = useContext(UserContext);
+  const [cookies] = useCookies();
   return (
     <div className="relative flex justify-center">
-      {profile_img_url ? (
+      {cookies?.profile_img_url ? (
         <img
-          src={profile_img_url}
+          src={cookies.profile_img_url}
           alt="Tutor"
           className={`shadow-xl rounded-full align-middle border border-tertiary ${size}`}
         />

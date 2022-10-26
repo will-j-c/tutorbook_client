@@ -1,14 +1,15 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import { retrieveTokenAndCreatePrivateAxiosInstance } from '../../api/axios';
+import axios from '../../api/axios';
 import { auth } from '../../firebaseConfig';
 import FilledButton from '../utils/buttons/FilledButton';
 import { toast } from 'react-toastify';
+import { useCookies } from 'react-cookie';
 import UserContext from '../utils/users/UserContext';
 
 function Login(props) {
-  const { setUuid, setProfile_img_url } = useContext(UserContext);
+  const [cookies, setCookie, removeCookie] = useCookies();
   const navigate = useNavigate();
   const [emailText, setEmailText] = useState('');
   const [passwordText, setPasswordText] = useState('');
@@ -30,15 +31,19 @@ function Login(props) {
     try {
       setLoading(true);
       const firebaseUser = await signInWithEmailAndPassword(auth, emailText, passwordText);
-      const axios = await retrieveTokenAndCreatePrivateAxiosInstance(firebaseUser.user);
-      const dbUser = await axios.get(`/users/${firebaseUser.user.email}`);
+      // Get the firebase id token (as this code happens before the cookie is set)
+      const idToken = await firebaseUser.user.getIdTokenResult(false);
+      const dbUser = await axios.get(`/users/${firebaseUser.user.email}`, {headers: {Authorization: `Bearer ${idToken.token}`}});
+      
+      setCookie('uuid', dbUser.data.user_uuid);
+      setCookie('profile_img_url', dbUser.data.profile_img_url);
+
       if (!dbUser) {
         signOut(auth);
         toast.error('Could not sign in');
         return;
       }
-      setUuid(dbUser.data.user_uuid);
-      setProfile_img_url(dbUser.data.profile_img_url);
+
       navigate(`/users/${dbUser.data.user_uuid}`);
       setLoading(false);
       toast.success('Successfully logged in');
