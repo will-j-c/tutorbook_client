@@ -1,23 +1,17 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from '../../api/axios';
 import { toast } from 'react-toastify';
 import { useCookies } from 'react-cookie';
-import UserContext from '../utils/users/UserContext';
 import UserProfileCard from '../cards/UserProfileCard';
 
-function UserProfile(props) {
+function UserProfile() {
   const [cookies] = useCookies();
   const navigate = useNavigate();
   const [data, setData] = useState(null);
   const { uuid } = useParams();
 
   const callUserDetailRoute = async (route) => {
-    if (!axios) {
-      toast.error('Could not get user details');
-      navigate('/login');
-      return;
-    }
 
     axios.get(route, {headers: {Authorization: `Bearer ${cookies.idToken}`}}).then(
       (response) => {
@@ -33,7 +27,6 @@ function UserProfile(props) {
   };
 
   useEffect(() => {
-    console.log(cookies)
     callUserDetailRoute(`users/${uuid}`);
   }, []);
 
@@ -42,7 +35,7 @@ function UserProfile(props) {
       <UserProfileCard data={data} />
     </div>
   ) : (
-    <h1>User Profile isn't working</h1>
+    ''
   );
 }
 

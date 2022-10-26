@@ -2,7 +2,6 @@ import Avatar from '../avatars/Avatar';
 import dayjs from 'dayjs';
 
 function UserProfileCard(props) {
-  console.log(props)
   const {
     first_name,
     last_name,
@@ -12,7 +11,7 @@ function UserProfileCard(props) {
     email_is_verified,
     created_at
   } = props.data;
-  const isFull = props?.isFull;
+  // const isFull = props?.isFull;
   return (
     <div className='max-w-xl p-8 sm:flex text-titleText sm:space-x-6 bg-primary rounded-md mt-10'>
       <div className='flex-shrink-0 w-full mb-6 h-44 sm:h-32 sm:w-32 sm:mb-0'>

@@ -1,5 +1,3 @@
-import { useContext } from 'react';
-import UserContext from '../utils/users/UserContext';
 import { useCookies } from 'react-cookie';
 
 function Avatar(props) {

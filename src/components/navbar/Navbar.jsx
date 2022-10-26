@@ -2,13 +2,11 @@ import FilledButton from '../utils/buttons/FilledButton';
 import OutlinedButton from '../utils/buttons/OutlinedButton';
 import SideNav from './SideNav';
 import UserDropdown from './UserDropdown';
-import UserContext from '../utils/users/UserContext';
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useCookies } from 'react-cookie';
 
-function PageNavbar() {
-  const cookies = useCookies();
+function PageNavbar(props) {
+  const {isLoggedIn} = props;
   const [sidenavIsOpen, setSidenavIsOpen] = useState(false);
 
   const handleClick = () => {
@@ -48,7 +46,7 @@ function PageNavbar() {
 
           <div className="flex items-center">
             <div className="sm:flex hidden">
-              {cookies[0].signedIn ? (
+              {isLoggedIn ? (
                 <UserDropdown />
               ) : (
                 <>

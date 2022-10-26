@@ -1,15 +1,14 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import axios from '../../api/axios';
 import { auth } from '../../firebaseConfig';
 import FilledButton from '../utils/buttons/FilledButton';
 import { toast } from 'react-toastify';
 import { useCookies } from 'react-cookie';
-import UserContext from '../utils/users/UserContext';
 
 function Login(props) {
-  const [cookies, setCookie, removeCookie] = useCookies();
+  const [, setCookie] = useCookies();
   const navigate = useNavigate();
   const [emailText, setEmailText] = useState('');
   const [passwordText, setPasswordText] = useState('');

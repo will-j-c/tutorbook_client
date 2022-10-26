@@ -5,23 +5,23 @@ import { ToastContainer } from 'react-toastify';
 import { auth } from './firebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useCookies } from 'react-cookie';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-  const [cookies, setCookie, removeCookie] = useCookies();
+  const [, setCookie, removeCookie] = useCookies();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         currentUser.getIdTokenResult(false).then(
           (idToken) => {
-            console.log(idToken);
             setCookie('idToken', idToken?.token);
             setCookie('email', currentUser.email);
-            setCookie('signedIn', true);
-            console.log(cookies);
+            setIsLoggedIn(true);
           },
           (error) => {
-            console.log(error)
+            toast.error(error.message)
           }
         );
       } else {
@@ -29,14 +29,14 @@ function App() {
         removeCookie('email');
         removeCookie('uuid');
         removeCookie('profile_pic_url');
-        setCookie('signedIn', false);
+        setIsLoggedIn(false);
       }
     });
   }, []);
 
   return (
     <>
-      <PageNavbar className="bg-primary" />
+      <PageNavbar className="bg-primary" isLoggedIn={isLoggedIn} />
       <Outlet />
       <ToastContainer
         position="bottom-left"

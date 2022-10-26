@@ -1,4 +1,3 @@
-import FilledButton from '../utils/buttons/FilledButton';
 function HowItWorks(props) {
   return (
     <div className="space-y-10 p-5 mt-5 text-titleText">
