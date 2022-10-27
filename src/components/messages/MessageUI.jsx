@@ -1,6 +1,31 @@
-import React from 'react';
+import { useCookies } from 'react-cookie';
+import { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
+import axios from '../../api/axios';
+import Avatar from '../avatars/Avatar';
+import Thread from './Thread';
 
 function MessageUI() {
+  const [cookies] = useCookies();
+  const [data, setData] = useState('');
+  
+  const callMessageUserRoute = async (route) => {
+    axios.get(route, { headers: { Authorization: `Bearer ${cookies.idToken}` } }).then(
+      (response) => {
+        setData(response.data);
+        console.log(response.data)
+        return;
+      },
+      (error) => {
+        toast.error(error.message);
+        return;
+      }
+    );
+  };
+
+  useEffect(() => {
+    callMessageUserRoute(`messages`);
+  }, []);
   return (
     <div className="container mx-auto">
       <div className="min-w-full border rounded lg:grid lg:grid-cols-3">
@@ -29,90 +54,22 @@ function MessageUI() {
             </div>
           </div>
 
-          <ul className="overflow-auto h-[32rem]">
-            <h2 className="my-2 mb-2 ml-2 text-lg text-gray-600">Chats</h2>
-            <li>
-              <a className="flex items-center px-3 py-2 text-sm transition duration-150 ease-in-out border-b border-gray-300 cursor-pointer hover:bg-gray-100 focus:outline-none">
-                <img
-                  className="object-cover w-10 h-10 rounded-full"
-                  src="https://cdn.pixabay.com/photo/2018/09/12/12/14/man-3672010__340.jpg"
-                  alt="username"
-                />
-                <div className="w-full pb-2">
-                  <div className="flex justify-between">
-                    <span className="block ml-2 font-semibold text-gray-600">Jhon Don</span>
-                    <span className="block ml-2 text-sm text-gray-600">25 minutes</span>
-                  </div>
-                  <span className="block ml-2 text-sm text-gray-600">bye</span>
-                </div>
-              </a>
-              <a className="flex items-center px-3 py-2 text-sm transition duration-150 ease-in-out bg-gray-100 border-b border-gray-300 cursor-pointer focus:outline-none">
-                <img
-                  className="object-cover w-10 h-10 rounded-full"
-                  src="https://cdn.pixabay.com/photo/2016/06/15/15/25/loudspeaker-1459128__340.png"
-                  alt="username"
-                />
-                <div className="w-full pb-2">
-                  <div className="flex justify-between">
-                    <span className="block ml-2 font-semibold text-gray-600">Same</span>
-                    <span className="block ml-2 text-sm text-gray-600">50 minutes</span>
-                  </div>
-                  <span className="block ml-2 text-sm text-gray-600">Good night</span>
-                </div>
-              </a>
-              <a className="flex items-center px-3 py-2 text-sm transition duration-150 ease-in-out border-b border-gray-300 cursor-pointer hover:bg-gray-100 focus:outline-none">
-                <img
-                  className="object-cover w-10 h-10 rounded-full"
-                  src="https://cdn.pixabay.com/photo/2018/01/15/07/51/woman-3083383__340.jpg"
-                  alt="username"
-                />
-                <div className="w-full pb-2">
-                  <div className="flex justify-between">
-                    <span className="block ml-2 font-semibold text-gray-600">Emma</span>
-                    <span className="block ml-2 text-sm text-gray-600">6 hour</span>
-                  </div>
-                  <span className="block ml-2 text-sm text-gray-600">Good Morning</span>
-                </div>
-              </a>
-            </li>
-          </ul>
+          <h2 className="my-2 mb-2 ml-2 text-lg text-gray-600">Chats</h2>
+
+          {!data ? '' : (data.threads.map(thread => {
+            return <Thread data={thread} />
+          }))}
         </div>
         <div className="hidden lg:col-span-2 lg:block">
           <div className="w-full">
             <div className="relative flex items-center p-3 border-b border-gray-300">
-              <img
-                className="object-cover w-10 h-10 rounded-full"
-                src="https://cdn.pixabay.com/photo/2018/01/15/07/51/woman-3083383__340.jpg"
-                alt="username"
-              />
+              <Avatar />
               <span className="block ml-2 font-bold text-gray-600">Emma</span>
               <span className="absolute w-3 h-3 bg-green-600 rounded-full left-10 top-3"></span>
             </div>
+
             <div className="relative w-full p-6 overflow-y-auto h-[40rem]">
-              <ul className="space-y-2">
-                <li className="flex justify-start">
-                  <div className="relative max-w-xl px-4 py-2 text-gray-700 rounded shadow">
-                    <span className="block">Hi</span>
-                  </div>
-                </li>
-                <li className="flex justify-end">
-                  <div className="relative max-w-xl px-4 py-2 text-gray-700 bg-gray-100 rounded shadow">
-                    <span className="block">Hiiii</span>
-                  </div>
-                </li>
-                <li className="flex justify-end">
-                  <div className="relative max-w-xl px-4 py-2 text-gray-700 bg-gray-100 rounded shadow">
-                    <span className="block">how are you?</span>
-                  </div>
-                </li>
-                <li className="flex justify-start">
-                  <div className="relative max-w-xl px-4 py-2 text-gray-700 rounded shadow">
-                    <span className="block">
-                      Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                    </span>
-                  </div>
-                </li>
-              </ul>
+              <ul className="space-y-2"></ul>
             </div>
 
             <div className="flex items-center justify-between w-full p-3 border-t border-gray-300">

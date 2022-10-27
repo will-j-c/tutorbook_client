@@ -15,7 +15,7 @@ function UserDropdown() {
     <div className="inline-flex items-stretch rounded-md text-titleText dropdown">
       <div className="relative hover:cursor-pointer dropdown">
         <div onClick={handleClick} className='dropdown'>
-          <Avatar size={'h-12 dropdown'} />
+          <Avatar size={'h-12 dropdown'} profile_img_url={cookies.profile_img_url} />
         </div>
         {open ? (
           <div
