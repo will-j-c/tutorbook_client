@@ -1,10 +1,17 @@
-import React from 'react';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+dayjs.extend(relativeTime);
 
-function Message() {
+function Message(props) {
+  const user = props.data.user;
+  const { content, created_at, sender } = props.data.message;
+  const currentUSerIsSender = user === sender;
+  const justify = currentUSerIsSender ? 'justify-end' : 'justify-start'
   return (
-    <li className="flex justify-start">
+    <li className={`flex ${justify}`}>
       <div className="relative max-w-xl px-4 py-2 rounded shadow">
-        <span className="block">Hi</span>
+        <span className="block">{content}</span>
+        <span className="block">{dayjs(created_at).fromNow()}</span>
       </div>
     </li>
   );
