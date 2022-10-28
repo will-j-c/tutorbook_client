@@ -57,7 +57,7 @@ function MessageUI() {
           <h2 className="my-2 mb-2 ml-2 text-lg text-gray-600">Chats</h2>
 
           {!data ? '' : (data.threads.map(thread => {
-            return <Thread data={thread} />
+            return <Thread data={{thread, user: data.user}} key={thread.thread_uuid}/>
           }))}
         </div>
         <div className="hidden lg:col-span-2 lg:block">
