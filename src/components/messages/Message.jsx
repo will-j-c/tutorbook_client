@@ -7,11 +7,12 @@ function Message(props) {
   const { content, created_at, sender } = props.data.message;
   const currentUSerIsSender = user === sender;
   const justify = currentUSerIsSender ? 'justify-end' : 'justify-start'
+  const color = justify === 'justify-end' ? 'bg-primary' : 'bg-tertiary'
   return (
     <li className={`flex ${justify}`}>
-      <div className="relative max-w-xl px-4 py-2 rounded shadow">
+      <div className={`relative max-w-xl px-4 py-2 rounded shadow ${color}`}>
         <span className="block">{content}</span>
-        <span className="block">{dayjs(created_at).fromNow()}</span>
+        <span className="block text-secondaryTitleText">{dayjs(created_at).fromNow()}</span>
       </div>
     </li>
   );
