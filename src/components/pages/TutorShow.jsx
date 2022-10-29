@@ -61,14 +61,14 @@ function TutorShow() {
           <TutorCard tutor={data} isFull={true} toggleModal={toggleModal} isOpen={modalOpen} />
         </div>
         {reviews.length !== 0 ? (
-          <div className="mt-16 mx-auto overflow-auto">
-            {reviews.map((review) => {
-              return <ReviewCard review={review} />;
+          <div className="mt-16 mx-auto overflow-auto" >
+            {reviews.map((review, idx) => {
+              return <ReviewCard review={review} key={idx} />;
             })}
           </div>
         ) : (
-          <div className="bg-primary">
-            <h1 className="text-titleText">No reviews yet</h1>
+          <div className="bg-primary mt-16">
+            <h1 className="text-titleText text-center">No reviews yet</h1>
           </div>
         )}
       </div>

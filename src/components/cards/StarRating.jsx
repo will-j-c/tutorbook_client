@@ -2,18 +2,19 @@ function StarRating(props) {
   const { stars } = props;
   const roundedStars = Math.round(stars);
   let filledStars = [];
-  
+
   if (roundedStars) {
     filledStars = [...Array(roundedStars).keys()];
   }
-  
+
   const unfilledStars = [...Array(5 - roundedStars).keys()];
   return (
     <div className="flex justify-center items-center">
       <div className="flex items-center">
-        {filledStars.map((star) => {
+        {filledStars.map((sta, idx) => {
           return (
             <svg
+              key={Math.random()}
               className="mx-1 w-4 h-4 fill-bodyText"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20">
@@ -24,6 +25,7 @@ function StarRating(props) {
         {unfilledStars.map((star) => {
           return (
             <svg
+              key={Math.random()}
               className="mx-1 w-4 h-4 fill-bodyText/50"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20">

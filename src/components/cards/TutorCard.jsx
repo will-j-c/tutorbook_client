@@ -5,7 +5,6 @@ import dayjs from 'dayjs';
 import StarRating from './StarRating';
 
 function TutorCard(props) {
-  console.log(props);
   const {
     about_me,
     created_at,
@@ -17,10 +16,11 @@ function TutorCard(props) {
     average_rating,
     user
   } = props.tutor;
+  
   const { toggleModal, isFull } = props;
 
   const rating = average_rating?.rating__avg?.toFixed(1);
-  console.log(rating);
+  
   return (
     <div className="relative px-6 bg-primary text-titleText max-w-md mx-auto md:max-w-2xl min-w-0 w-full pb-6 shadow-lg rounded-md mt-16">
       <div className="flex flex-wrap justify-center">
