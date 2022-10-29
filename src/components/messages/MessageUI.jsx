@@ -14,11 +14,11 @@ function MessageUI() {
   const [newMessage, setNewMessage] = useState('');
   const messageText = useRef();
   const messageWindow = useRef();
+
   const callMessageUserRoute = async (route) => {
     axios.get(route, { headers: { Authorization: `Bearer ${cookies.idToken}` } }).then(
       (response) => {
         setData(response.data);
-        messageWindow.current.scrollTop = messageWindow.current.scrollHeight;
         return;
       },
       (error) => {
@@ -28,7 +28,7 @@ function MessageUI() {
     );
   };
 
-  const postMessage = (message) => {
+  const postMessage = () => {
     const body = {
       tutor: activeThread.tutor.id,
       user: activeThread.user.id,
@@ -43,7 +43,6 @@ function MessageUI() {
       .then(
         (response) => {
           callMessageUserRoute(`messages`);
-
           return;
         },
         (error) => {
@@ -59,14 +58,17 @@ function MessageUI() {
     setNewMessage(event.target.value);
   };
 
-  const sendMessage = () => {
+  const sendMessage = (event) => {
+    // If the message box is empty, do nothing
     if (!newMessage) {
       return;
     }
+    // Set to send on pressing enter
+    if (event.keyCode !== 13 && event.keyCode !== 110) {
+      return;
+    }
     messageText.current.value = '';
-    console.log(messageWindow)
-    messageWindow.current.scrollTop = messageWindow.current.scrollHeight;
-    postMessage(newMessage);
+    postMessage();
   };
 
   const setActive = (event) => {
@@ -155,7 +157,9 @@ function MessageUI() {
                   <span className="absolute w-3 h-3 rounded-full left-10 top-3"></span>
                 </div>
 
-                <div className="relative w-full p-6 overflow-y-scroll h-[40rem]" ref={messageWindow}>
+                <div
+                  className="relative w-full p-6 overflow-y-scroll h-[40rem]"
+                  ref={messageWindow}>
                   <ul className="space-y-2">
                     {activeThread?.messages.map((message) => {
                       return <Message key={message.id} data={{ message, user: data.user }} />;
@@ -166,6 +170,7 @@ function MessageUI() {
                 <div className="flex items-center justify-between w-full p-3 border-t border-gray-300">
                   <input
                     onChange={handleTypeMessage}
+                    onKeyUp={sendMessage}
                     ref={messageText}
                     type="text"
                     placeholder="Message"
