@@ -6,7 +6,7 @@ import axios from '../../api/axios';
 import { toast } from 'react-toastify';
 import TutorCard from '../cards/TutorCard';
 import ReviewCard from '../cards/ReviewCard';
-import ReviewModal from '../modals/BaseModal';
+import ReviewModal from '../modals/ReviewModal';
 
 function TutorShow() {
   const [cookies] = useCookies();
