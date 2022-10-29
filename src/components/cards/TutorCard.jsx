@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import StarRating from './StarRating';
 
 function TutorCard(props) {
+  console.log(props);
   const {
     about_me,
     created_at,
@@ -16,7 +17,8 @@ function TutorCard(props) {
     average_rating,
     user
   } = props.tutor;
-  const isFull = props?.isFull;
+  const { toggleModal, isFull } = props;
+
   const rating = average_rating?.rating__avg?.toFixed(1);
   console.log(rating);
   return (
@@ -42,7 +44,7 @@ function TutorCard(props) {
         <div className="flex justify-center gap-2 px-6 my-4">
           {isFull ? (
             <>
-              <OutlinedButton label="Review" />
+              <OutlinedButton label="Review" action={toggleModal} />
               <FilledButton label="Message" />
             </>
           ) : (
@@ -84,7 +86,6 @@ function TutorCard(props) {
             </div>
           </div>
 
-          
           {isFull ? (
             <>
               <div>
