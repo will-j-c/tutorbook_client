@@ -1,50 +1,53 @@
 import PageNavbar from './components/navbar/Navbar';
 import { Outlet } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { auth } from './firebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
-import UserContext from './components/utils/users/UserContext';
+import { useCookies } from 'react-cookie';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-  const [user, setUser] = useState(() => {
-    const user = auth.currentUser;
-    return user;
-  });
-
-  const [uuid, setUuid] = useState('');
-
-  const [profile_img_url, setProfile_img_url] = useState('');
-
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      setUser(user);
-    } else {
-      setUser(null);
-    }
-  });
-
-  
+  const [, setCookie, removeCookie] = useCookies();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  useEffect(() => {
+    onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        currentUser.getIdTokenResult(false).then(
+          (idToken) => {
+            setCookie('idToken', idToken?.token);
+            setCookie('email', currentUser.email);
+            setIsLoggedIn(true);
+          },
+          (error) => {
+            toast.error(error.message)
+          }
+        );
+      } else {
+        removeCookie('idToken');
+        removeCookie('email');
+        removeCookie('uuid');
+        removeCookie('profile_pic_url');
+        setIsLoggedIn(false);
+      }
+    });
+  }, []);
 
   return (
-    <UserContext.Provider
-      value={{ user, setUser, uuid, setUuid, profile_img_url, setProfile_img_url }}>
-      <PageNavbar className="bg-primary" />
+    <>
+      <PageNavbar className="bg-primary" isLoggedIn={isLoggedIn} />
       <Outlet />
       <ToastContainer
         position="bottom-left"
-        autoClose={4000}
+        autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
         rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
         theme="light"
       />
-    </UserContext.Provider>
+    </>
   );
 }
 

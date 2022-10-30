@@ -12,7 +12,7 @@ function LogOutButton(props) {
   };
   return (
     <button
-      className="inline-block rounded bg-tertiary px-6 py-3 text-base font-bold text-primary hover:bg-transparent hover:bg-tertiary/90"
+      className=" w-full rounded bg-tertiary px-3 py-3 font-bold text-primary hover:bg-transparent hover:bg-tertiary/90"
       onClick={handleLogout}>
       Logout
     </button>

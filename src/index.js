@@ -9,6 +9,7 @@ import TutorShow from './components/pages/TutorShow';
 import UserProfile from './components/pages/UserProfile';
 import Home from './components/pages/Home';
 import HowItWorks from './components/pages/HowItWorks';
+import AssignmentIndex from './components/pages/AssignmentIndex';
 import App from './App';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -28,6 +29,7 @@ root.render(
           <Route path="users">
             <Route path=":uuid" element={<UserProfile />} />
           </Route>
+          <Route path="assignments" element={<AssignmentIndex />} />
           <Route index element={<Home />} />
         </Route>
       </Routes>

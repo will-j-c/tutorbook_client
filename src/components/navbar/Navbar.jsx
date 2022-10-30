@@ -2,12 +2,11 @@ import FilledButton from '../utils/buttons/FilledButton';
 import OutlinedButton from '../utils/buttons/OutlinedButton';
 import SideNav from './SideNav';
 import UserDropdown from './UserDropdown';
-import UserContext from '../utils/users/UserContext';
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-function PageNavbar() {
-  const { user } = useContext(UserContext);
+function PageNavbar(props) {
+  const {isLoggedIn} = props;
   const [sidenavIsOpen, setSidenavIsOpen] = useState(false);
 
   const handleClick = () => {
@@ -35,12 +34,19 @@ function PageNavbar() {
                   Browse Tutors
                 </Link>
               </li>
+              <li>
+                <Link
+                  className="text-titleText font-bold transition text-sm hover:text-titleText/75"
+                  to="/assignments">
+                  Browse Assignments
+                </Link>
+              </li>
             </ul>
           </nav>
 
           <div className="flex items-center">
             <div className="sm:flex hidden">
-              {user ? (
+              {isLoggedIn ? (
                 <UserDropdown />
               ) : (
                 <>
