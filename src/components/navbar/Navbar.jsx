@@ -4,6 +4,7 @@ import SideNav from './SideNav';
 import UserDropdown from './UserDropdown';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import AssignmentModal from '../modals/AssignmentModal';
 
 function PageNavbar(props) {
   const {isLoggedIn} = props;
@@ -41,6 +42,13 @@ function PageNavbar(props) {
                   Browse Assignments
                 </Link>
               </li>
+              <li>
+                <div
+                  className="text-titleText font-bold transition text-sm hover:text-titleText/75 hover:cursor-pointer"
+                  >
+                  Create assignment
+                </div>
+              </li>
             </ul>
           </nav>
 
@@ -73,6 +81,7 @@ function PageNavbar(props) {
           </div>
         </div>
       </div>
+      <AssignmentModal />
     </header>
   );
 }
