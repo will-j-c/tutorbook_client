@@ -13,6 +13,7 @@ function TutorShow() {
   const navigate = useNavigate();
   const [data, setData] = useState(null);
   const [reviews, setReviews] = useState(null);
+  const [render, setRender] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const { uuid } = useParams();
 
@@ -49,9 +50,11 @@ function TutorShow() {
     callTutorReviewsRoute(`reviews/${uuid}/list`);
   }, []);
 
+
   const toggleModal = (event) => {
     event.preventDefault();
     setModalOpen((previous) => !previous);
+    callTutorReviewsRoute(`reviews/${uuid}/list`);
   };
 
   return data && reviews ? (
@@ -61,7 +64,7 @@ function TutorShow() {
           <TutorCard tutor={data} isFull={true} toggleModal={toggleModal} isOpen={modalOpen} />
         </div>
         {reviews.length !== 0 ? (
-          <div className="mt-16 mx-auto overflow-auto" >
+          <div className="mt-16 overflow-auto flex flex-col gap-5" >
             {reviews.map((review, idx) => {
               return <ReviewCard review={review} key={idx} />;
             })}
@@ -72,7 +75,7 @@ function TutorShow() {
           </div>
         )}
       </div>
-      <ReviewModal isOpen={modalOpen} toggleOpen={setModalOpen} />
+      <ReviewModal isOpen={modalOpen} toggleOpen={setModalOpen} tutor_uuid={uuid} />
     </>
   ) : (
     ''
