@@ -1,101 +1,47 @@
-import FilledButton from '../utils/buttons/FilledButton';
-import OutlinedButton from '../utils/buttons/OutlinedButton';
+import Avatar from '../avatars/Avatar';
+import dayjs from 'dayjs';
 
-function TutorCard(props) {
+function UserProfileCard(props) {
+  console.log(props)
   const {
-    about_me,
-    created_at,
-    levels,
-    locations,
-    looking_for_assignment,
-    published,
-    subjects,
-    tutor_uuid,
-    user
-  } = props.tutor;
+    first_name,
+    last_name,
+    user_type,
+    email,
+    profile_img_url,
+    email_is_verified,
+    created_at
+  } = props.data;
   const isFull = props?.isFull;
   return (
-    <div className="relative bg-primary text-titleText max-w-md mx-auto md:max-w-2xl min-w-0 break-words w-full mb-6 shadow-lg rounded-md mt-16">
-      <div className="px-6">
-        <div className="flex flex-wrap justify-center">
-          <div className="w-full flex justify-center">
-            <div className="relative flex justify-center">
-              <img
-                src={user.profile_img_url}
-                alt="Tutor"
-                className="shadow-xl rounded-full align-middle border border-tertiary -m-14 absolute max-w-[100px]"
-              />
-            </div>
-          </div>
-          <div className="w-full text-center mt-10"></div>
-        </div>
-        <div className="text-center mt-2">
-          <h3 className="text-2xl text-secondaryTitleText font-bold leading-normal mb-1">
-            {user.first_name}
-          </h3>
-        </div>
-        <div className="mt-6">
-          <div className="flex flex-col justify-between">
-            <div className="w-full flex flex-col justify-between gap-3">
-              <div className="grid-container grid grid-cols-6 text-xs">
-                <p className="text-secondaryTitleText mr-3 col-span-2">Locations</p>
-                <div className="w-max grid grid-cols-2 gap-1 text-left">
-                  {locations.map((location) => {
-                    return <div key={location?.location_name}>{`${location?.location_name}`}</div>;
-                  })}
-                </div>
-              </div>
-              <div className="grid-container grid grid-cols-6 text-xs">
-                <p className="text-secondaryTitleText mr-3 col-span-2">Subjects</p>
-                <div className="w-max grid grid-cols-2 gap-1 text-left">
-                  {subjects.map((subject) => {
-                    return <div key={subject?.subject_name}>{`${subject?.subject_name}`}</div>;
-                  })}
-                </div>
-              </div>
-
-              <div className="grid-container grid grid-cols-6 text-xs">
-                <p className="text-secondaryTitleText mr-3 col-span-2">Levels taught</p>
-                <div className="w-max grid grid-cols-2 gap-1 text-left">
-                  {levels.map((level) => {
-                    return <div key={level?.level_name}>{`${level?.level_name}`}</div>;
-                  })}
-                </div>
-              </div>
-
-              {isFull ? (
-                <>
-                  <div className="grid-container grid grid-cols-6 text-xs">
-                    <p className="text-secondaryTitleText mr-3 col-span-2">About me</p>
-                    <p className="w-max text-left">{about_me}</p>
-                  </div>
-                  <div className="grid-container grid grid-cols-6 text-xs">
-                    <p className="text-secondaryTitleText mr-3 col-span-2">Average rating</p>
-                    <p className="w-max text-left">rating</p>
-                  </div>
-                </>
-              ) : (
-                ''
-              )}
-            </div>
-          </div>
-        </div>
+    <div className='max-w-xl p-8 sm:flex text-titleText sm:space-x-6 bg-primary rounded-md mt-10'>
+      <div className='flex-shrink-0 w-full mb-6 h-44 sm:h-32 sm:w-32 sm:mb-0'>
+        <Avatar profile_img_url={profile_img_url} />
       </div>
-      <div className="flex justify-end gap-2 px-6 my-4">
-        {isFull ? (
-          <>
-            <OutlinedButton label="Review" />
-            <FilledButton label="Message" />
-          </>
-        ) : (
-          <>
-            <OutlinedButton label="Message" />
-            <FilledButton label="View" linkTo={tutor_uuid} />
-          </>
-        )}
+      <div className='flex flex-col space-y-4'>
+        <div>
+          <h2 className='text-2xl font-bold text-secondaryTitleText'>{`${first_name} ${last_name}`}</h2>
+          <p className='text-md'>{user_type === 2 ? 'Tutor' : 'User'}</p>
+          <p className='text-md'>{email_is_verified ? 'Verified email' : 'Email not verified'}</p>
+          <p className='text-md'>{`Member since ${dayjs(created_at).format('DD/MM/YYYY')}`}</p>
+        </div>
+        <div className='space-y-1'>
+          <span className='flex items-center space-x-2'>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              viewBox='0 0 512 512'
+              aria-label='Email address'
+              className='w-4 h-4'>
+              <path
+                fill='currentColor'
+                d='M274.6,25.623a32.006,32.006,0,0,0-37.2,0L16,183.766V496H496V183.766ZM464,402.693,339.97,322.96,464,226.492ZM256,51.662,454.429,193.4,311.434,304.615,256,268.979l-55.434,35.636L57.571,193.4ZM48,226.492,172.03,322.96,48,402.693ZM464,464H48V440.735L256,307.021,464,440.735Z'></path>
+            </svg>
+            <span className='text-md'>{email}</span>
+          </span>
+        </div>
       </div>
     </div>
   );
 }
 
-export default TutorCard;
+export default UserProfileCard;

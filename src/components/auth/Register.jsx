@@ -101,7 +101,7 @@ function Register(props) {
     }
 
     try {
-      const user = await axios.post('/users/', form);
+      const user = await axios.post('/users', form);
       await createUserWithEmailAndPassword(auth, emailText.toLowerCase(), passwordText);
       setLoading(false);
       toast.success('Account successfully created');
