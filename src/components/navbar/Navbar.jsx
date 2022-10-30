@@ -2,12 +2,12 @@ import FilledButton from '../utils/buttons/FilledButton';
 import OutlinedButton from '../utils/buttons/OutlinedButton';
 import SideNav from './SideNav';
 import UserDropdown from './UserDropdown';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import AssignmentModal from '../modals/AssignmentModal';
 
 function PageNavbar(props) {
-  const {isLoggedIn} = props;
+  const { isLoggedIn } = props;
   const [sidenavIsOpen, setSidenavIsOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -16,10 +16,8 @@ function PageNavbar(props) {
   };
 
   const toggleModal = (event) => {
-    
-    event.preventDefault();
     setModalOpen((previous) => !previous);
-    
+
     if (event?.target?.textContent !== 'Create assignment') {
       window.location.reload(true);
     }
@@ -56,8 +54,7 @@ function PageNavbar(props) {
               <li>
                 <div
                   className="text-titleText font-bold transition text-sm hover:text-titleText/75 hover:cursor-pointer"
-                  onClick={toggleModal}
-                  >
+                  onClick={toggleModal}>
                   Create assignment
                 </div>
               </li>

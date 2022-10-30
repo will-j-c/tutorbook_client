@@ -4,14 +4,14 @@ import { toast } from 'react-toastify';
 import FilledButton from '../utils/buttons/FilledButton';
 import OutlinedButton from '../utils/buttons/OutlinedButton';
 import axios from '../../api/axios';
-function AssignmentModal(props) {
+function EditAssignmentModal(props) {
   const [cookies] = useCookies();
-  const { isOpen, toggleOpen } = props;
+  const { isOpen, toggleOpen, assignment_uuid, title, description } = props;
 
   const hidden = isOpen ? '' : 'hidden';
   const [form, setForm] = useState({
-    title: '',
-    description: '',
+    title: title,
+    description: description,
     published: true
   });
 
@@ -28,7 +28,7 @@ function AssignmentModal(props) {
   };
 
   const handleChange = (event) => {
-    console.log(event.target.type);
+    
     if (event.target.type === 'text') {
       setForm((previous) => {
         return { ...previous, title: event.target.value };
@@ -41,9 +41,9 @@ function AssignmentModal(props) {
     }
   };
 
-  const postAssignment= () => {
+  const editAssignment= () => {
     axios
-      .post(`assignments/create`, form, {
+      .patch(`assignments/${assignment_uuid}`, form, {
         headers: { Authorization: `Bearer ${cookies.idToken}` }
       })
       .then(
@@ -69,7 +69,7 @@ function AssignmentModal(props) {
           <textarea className="resize h-60" onChange={handleChange} value={form?.description} />
           <div className="flex gap-5 justify-center">
             <OutlinedButton label="Cancel" action={handleClose} />
-            <FilledButton label="Create" action={postAssignment} />
+            <FilledButton label="Edit" action={editAssignment} />
           </div>
         </div>
       </div>
@@ -77,4 +77,4 @@ function AssignmentModal(props) {
   );
 }
 
-export default AssignmentModal;
+export default EditAssignmentModal;

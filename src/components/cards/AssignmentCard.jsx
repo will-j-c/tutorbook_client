@@ -2,17 +2,27 @@ import dayjs from 'dayjs';
 import { useState } from 'react';
 import { useCookies } from 'react-cookie';
 import Avatar from '../avatars/Avatar';
-import ConfirmAssignmentDeleteModal from '../modals/ConfirmDeleteModal';
+import ConfirmAssignmentDeleteModal from '../modals/ConfirmAssignmentDeleteModal';
+import EditAssignmentModal from '../modals/EditAssignmentModal';
 import FilledButton from '../utils/buttons/FilledButton';
 import OutlinedButton from '../utils/buttons/OutlinedButton';
 
 function AssignmentCard(props) {
-  const { published_at, user, title, filled, description, assignment_uuid } = props.assignment;
+  const { published_at, user, title, description, assignment_uuid } = props.assignment;
   const [cookies] = useCookies();
   const [deleteAssignmentModalOpen, setDeleteAssignmentModalOpen] = useState(false);
+  const [editAssignmentModalOpen, setEditAssignmentModalOpen] = useState(false);
+
   const toggleDeleteModal = (event) => {
     setDeleteAssignmentModalOpen((previous) => !previous);
     if (event?.target?.text !== 'Delete') {
+      window.location.reload(true);
+    }
+  }
+
+  const toggleEditModal = (event) => {
+    setEditAssignmentModalOpen((previous) => !previous);
+    if (event?.target?.text !== 'Edit') {
       window.location.reload(true);
     }
   }
@@ -42,7 +52,7 @@ function AssignmentCard(props) {
         <div className="flex gap-3">
           {cookies.uuid === user.user_uuid ? (
             <>
-              <OutlinedButton label="Edit" />
+              <OutlinedButton label="Edit" action={toggleEditModal} />
               <OutlinedButton label="Delete" action={toggleDeleteModal} />
             </>
           ) : (
@@ -51,6 +61,7 @@ function AssignmentCard(props) {
         </div>
       </div>
       <ConfirmAssignmentDeleteModal isOpen={deleteAssignmentModalOpen} toggleOpen={toggleDeleteModal} assignment_uuid={assignment_uuid} />
+      <EditAssignmentModal isOpen={editAssignmentModalOpen} toggleOpen={toggleEditModal} assignment_uuid={assignment_uuid} title={title} description={description}/>
     </div>
   );
 }

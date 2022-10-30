@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { toast } from 'react-toastify';
 import FilledButton from '../utils/buttons/FilledButton';
