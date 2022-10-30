@@ -12,6 +12,7 @@ import HowItWorks from './components/pages/HowItWorks';
 import AssignmentIndex from './components/pages/AssignmentIndex';
 import App from './App';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import MessageUI from './components/messages/MessageUI';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -30,6 +31,7 @@ root.render(
             <Route path=":uuid" element={<UserProfile />} />
           </Route>
           <Route path="assignments" element={<AssignmentIndex />} />
+          <Route path='messages' element={<MessageUI />} />
           <Route index element={<Home />} />
         </Route>
       </Routes>

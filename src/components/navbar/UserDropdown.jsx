@@ -15,7 +15,7 @@ function UserDropdown() {
     <div className="inline-flex items-stretch rounded-md text-titleText dropdown">
       <div className="relative hover:cursor-pointer dropdown">
         <div onClick={handleClick} className='dropdown'>
-          <Avatar size={'h-12 dropdown'} />
+          <Avatar size={'h-12 dropdown'} profile_img_url={cookies.profile_img_url} />
         </div>
         {open ? (
           <div
@@ -31,7 +31,7 @@ function UserDropdown() {
             </div>
             <div className="p-2">
               <Link
-                href="#"
+                to={`/messages`}
                 className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700 dropdown"
                 role="menuitem">
                 Messages

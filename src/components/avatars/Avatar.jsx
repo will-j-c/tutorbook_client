@@ -1,13 +1,10 @@
-import { useCookies } from 'react-cookie';
-
 function Avatar(props) {
-  const { size } = props;
-  const [cookies] = useCookies();
+  const { size, profile_img_url } = props;
   return (
     <div className="relative flex justify-center">
-      {cookies?.profile_img_url ? (
+      {profile_img_url ? (
         <img
-          src={cookies.profile_img_url}
+          src={profile_img_url}
           alt="Tutor"
           className={`shadow-xl rounded-full align-middle border border-tertiary ${size}`}
         />
