@@ -30,8 +30,10 @@ root.render(
           <Route path="users">
             <Route path=":uuid" element={<UserProfile />} />
           </Route>
-          <Route path="assignments" element={<AssignmentIndex />} />
-          <Route path='messages' element={<MessageUI />} />
+          <Route path="assignments">
+            <Route index element={<AssignmentIndex />} />
+          </Route>
+          <Route path="messages" element={<MessageUI />} />
           <Route index element={<Home />} />
         </Route>
       </Routes>
