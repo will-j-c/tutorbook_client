@@ -5,15 +5,19 @@ import { useNavigate } from 'react-router-dom';
 import axios from '../../api/axios';
 import { toast } from 'react-toastify';
 import TutorCard from '../cards/TutorCard';
+import ReviewCard from '../cards/ReviewCard';
+import ReviewModal from '../modals/ReviewModal';
 
 function TutorShow() {
   const [cookies] = useCookies();
   const navigate = useNavigate();
   const [data, setData] = useState(null);
+  const [reviews, setReviews] = useState(null);
+  const [render, setRender] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const { uuid } = useParams();
 
   const callUserDetailRoute = async (route) => {
-
     axios.get(route, { headers: { Authorization: `Bearer ${cookies.idToken}` } }).then(
       (response) => {
         setData(response.data);
@@ -27,11 +31,55 @@ function TutorShow() {
     );
   };
 
+  const callTutorReviewsRoute = async (route) => {
+    axios.get(route, { headers: { Authorization: `Bearer ${cookies.idToken}` } }).then(
+      (response) => {
+        setReviews(response.data);
+        return;
+      },
+      (error) => {
+        toast.error(error.message);
+        navigate('/login');
+        return;
+      }
+    );
+  };
+
   useEffect(() => {
     callUserDetailRoute(`tutors/${uuid}`);
+    callTutorReviewsRoute(`reviews/${uuid}/list`);
   }, []);
 
-  return data ? <TutorCard tutor={data} isFull={true} /> : '';
+
+  const toggleModal = (event) => {
+    event.preventDefault();
+    setModalOpen((previous) => !previous);
+    callTutorReviewsRoute(`reviews/${uuid}/list`);
+  };
+
+  return data && reviews ? (
+    <>
+      <div className="grid grid-cols-1 px-2 md:grid-cols-3 mt-5">
+        <div className="col-span-2">
+          <TutorCard tutor={data} isFull={true} toggleModal={toggleModal} isOpen={modalOpen} />
+        </div>
+        {reviews.length !== 0 ? (
+          <div className="mt-16 overflow-auto flex flex-col gap-5" >
+            {reviews.map((review, idx) => {
+              return <ReviewCard review={review} key={idx} />;
+            })}
+          </div>
+        ) : (
+          <div className="bg-primary mt-16">
+            <h1 className="text-titleText text-center">No reviews yet</h1>
+          </div>
+        )}
+      </div>
+      <ReviewModal isOpen={modalOpen} toggleOpen={setModalOpen} tutor_uuid={uuid} />
+    </>
+  ) : (
+    ''
+  );
 }
 
 export default TutorShow;

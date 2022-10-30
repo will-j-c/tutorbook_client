@@ -39,7 +39,7 @@ function TutorIndex(props) {
 
   return (
     <>
-      <section className="bg-background mt-4 sm:grid sm:grid-cols-3 gap-4 px-6">
+      <section className="bg-background mt-4 sm:grid sm:grid-cols-2 gap-4 px-6">
         {!data
           ? ''
           : data.map((tutor, idx) => {

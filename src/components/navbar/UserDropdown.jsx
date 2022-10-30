@@ -7,6 +7,7 @@ import { useCookies } from 'react-cookie';
 function UserDropdown() {
   const [open, setOpen] = useState(false);
   const [cookies] = useCookies();
+  
   const handleClick = () => {
     setOpen((prevState) => !prevState);
   };
