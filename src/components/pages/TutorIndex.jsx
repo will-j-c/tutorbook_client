@@ -37,6 +37,7 @@ function TutorIndex(props) {
     window.scrollTo(0, 0);
   };
 
+
   return (
     <>
       <section className="bg-background mt-4 sm:grid sm:grid-cols-2 gap-4 px-6">

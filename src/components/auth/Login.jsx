@@ -36,7 +36,7 @@ function Login(props) {
       
       setCookie('uuid', dbUser.data.user_uuid);
       setCookie('profile_img_url', dbUser.data.profile_img_url);
-
+      setCookie('user_type', dbUser.data.user_type);
       if (!dbUser) {
         signOut(auth);
         toast.error('Could not sign in');
