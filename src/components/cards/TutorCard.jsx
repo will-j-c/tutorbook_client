@@ -3,6 +3,7 @@ import OutlinedButton from '../utils/buttons/OutlinedButton';
 import Pill from '../utils/pills/Pill';
 import dayjs from 'dayjs';
 import StarRating from './StarRating';
+import { useCookies } from 'react-cookie';
 
 function TutorCard(props) {
   const {
@@ -14,13 +15,18 @@ function TutorCard(props) {
     subjects,
     tutor_uuid,
     average_rating,
-    user
+    user,
+    id
   } = props.tutor;
-  
-  const { toggleModal, isFull } = props;
+  const [cookies] = useCookies();
+  const { toggleModal, isFull, toggleOpen } = props;
 
   const rating = average_rating?.rating__avg?.toFixed(1);
-  
+
+  const handleMessageClick = (event) => {
+    toggleOpen();
+  };
+
   return (
     <div className="relative px-6 bg-primary text-titleText max-w-md mx-auto md:max-w-2xl min-w-0 w-full pb-6 shadow-lg rounded-md mt-16">
       <div className="flex flex-wrap justify-center">
@@ -44,12 +50,22 @@ function TutorCard(props) {
         <div className="flex justify-center gap-2 px-6 my-4">
           {isFull ? (
             <>
-              <OutlinedButton label="Review" action={toggleModal} />
-              <FilledButton label="Message" />
+              {cookies.user_type !== '2' ? (
+                <>
+                  <OutlinedButton label="Review" action={toggleModal} />
+                  <FilledButton label="Message" action={handleMessageClick} />
+                </>
+              ) : (
+                ''
+              )}
             </>
           ) : (
             <>
-              <OutlinedButton label="Message" />
+              {cookies.user_type !== '2' ? (
+                <OutlinedButton label="Message" action={handleMessageClick} />
+              ) : (
+                ''
+              )}
               <FilledButton label="View" linkTo={tutor_uuid} />
             </>
           )}

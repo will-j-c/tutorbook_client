@@ -9,6 +9,8 @@ import OutlinedButton from '../utils/buttons/OutlinedButton';
 
 function AssignmentCard(props) {
   const { published_at, user, title, description, assignment_uuid } = props.assignment;
+  const toggleOpen  = props.toggleOpen;
+  const setAssignmentUser = props.setAssignmentUser;
   const [cookies] = useCookies();
   const [deleteAssignmentModalOpen, setDeleteAssignmentModalOpen] = useState(false);
   const [editAssignmentModalOpen, setEditAssignmentModalOpen] = useState(false);
@@ -18,14 +20,20 @@ function AssignmentCard(props) {
     if (event?.target?.text !== 'Delete') {
       window.location.reload(true);
     }
-  }
+  };
 
   const toggleEditModal = (event) => {
     setEditAssignmentModalOpen((previous) => !previous);
     if (event?.target?.text !== 'Edit') {
       window.location.reload(true);
     }
+  };
+
+  const handleMessageClick = () => {
+    setAssignmentUser(user.id);
+    toggleOpen();
   }
+
   return (
     <div className="relative overflow-hidden rounded-lg p-8 bg-primary text-titleText">
       <div className="justify-between sm:flex">
@@ -55,13 +63,25 @@ function AssignmentCard(props) {
               <OutlinedButton label="Edit" action={toggleEditModal} />
               <OutlinedButton label="Delete" action={toggleDeleteModal} />
             </>
+          ) : cookies.user_type !== '1' ? (
+            <FilledButton label="Message" action={handleMessageClick} />
           ) : (
-            <FilledButton label="Message" />
+            ''
           )}
         </div>
       </div>
-      <ConfirmAssignmentDeleteModal isOpen={deleteAssignmentModalOpen} toggleOpen={toggleDeleteModal} assignment_uuid={assignment_uuid} />
-      <EditAssignmentModal isOpen={editAssignmentModalOpen} toggleOpen={toggleEditModal} assignment_uuid={assignment_uuid} title={title} description={description}/>
+      <ConfirmAssignmentDeleteModal
+        isOpen={deleteAssignmentModalOpen}
+        toggleOpen={toggleDeleteModal}
+        assignment_uuid={assignment_uuid}
+      />
+      <EditAssignmentModal
+        isOpen={editAssignmentModalOpen}
+        toggleOpen={toggleEditModal}
+        assignment_uuid={assignment_uuid}
+        title={title}
+        description={description}
+      />
     </div>
   );
 }
