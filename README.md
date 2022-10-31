@@ -1,70 +1,42 @@
-# Getting Started with Create React App
+# TutorBook Client
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A client side app for the TutorBook app which allows a user to browse tutors and assignments, look for tutors and advertise themselves for tutor assignments. 
 
-## Available Scripts
+## App Link
 
-In the project directory, you can run:
+https://tutorbook-app.netlify.app/
 
-### `npm start`
+## Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. React
+2. Tailwind
+3. Axios
+4. Various Tailwind component libraries (mainly Mamba UI and Hyper UI)
+5. Firebase Authentication
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Approach
 
-### `npm test`
+After completing all the backend planning, I got to work on creating a basic prototype in Figma. This included a colour scheme and mobile views for most of the pages.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+I did a test deployment on the weekend before the project was due to make sure that the live frontend and backend could communicate with each other.
 
-### `npm run build`
+## Issues Face
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Figma is a powerful tool but it isn't exactly beginner friendly. Creating good looking mock ups is an art form in itself. One which I am not great at. 
+2. Authentication generally was a bit of a chore. I initially tried to use AuthO but found it quite difficult to use so switched to Firebase. Firebase itself, although easier than AuthO, does have its quirks which still aren't fully ironed our (such as refresh token actions happening in the background).
+3. Initially getting the hang of Tailwind was quite troublesome as it is a completely different way of thinking about styling.
+4. I hadn't quite realised the scale of the app until I started working on it. I could of done with an extra week to really nail the front end functionality and styling but learning Django sucked up a lot of time.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Things I Liked
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Tailwind is great. I am definitely a convert, even if it does look hideous on the page.
+2. Using react with Tailwind was a good experience after using MUI in the last project. Writing semantic HTML and then using a powerful styling system gave much finer control
 
-### `npm run eject`
+## Things To Do
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. Add reset password and change password functionality to the frontend app
+2. Create search functionality on the users and assignments
+3. Implement fully realtime chat functionality
+4. Implement analytics
+5. Implement a subscription model
+6. Redo the styling and refactor the code to keep it more DRY

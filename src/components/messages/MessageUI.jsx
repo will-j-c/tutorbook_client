@@ -101,29 +101,6 @@ function MessageUI() {
     <div className='container mx-auto mt-5 text-titleText border-tertiary'>
       <div className='min-w-full border rounded lg:grid lg:grid-cols-3'>
         <div className='border-r  lg:col-span-1'>
-          <div className='mx-3 my-3'>
-            <div className='relative'>
-              <span className='absolute inset-y-0 left-0 flex items-center pl-2'>
-                <svg
-                  fill='none'
-                  stroke='currentColor'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  strokeWidth='2'
-                  viewBox='0 0 24 24'
-                  className='w-6 h-6 text-gray-300'>
-                  <path d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'></path>
-                </svg>
-              </span>
-              <input
-                type='search'
-                className='block w-full py-2 pl-10 rounded outline-none'
-                name='search'
-                placeholder='Search'
-                required
-              />
-            </div>
-          </div>
 
           <h2 className='my-2 mb-2 ml-2 text-lg'>Chats</h2>
 
@@ -141,7 +118,7 @@ function MessageUI() {
               })}
         </div>
         <div className='hidden lg:col-span-2 lg:block'>
-          <div className='w-full h-[90vh]'>
+          <div className='w-full h-[85vh] flex flex-col'>
             {activeThread ? (
               <>
                 <div className='relative flex items-center p-3 border-b bg-primary'>
@@ -171,14 +148,14 @@ function MessageUI() {
                   </ul>
                 </div>
 
-                <div className='flex items-center justify-between w-full p-3 border-t'>
+                <div className='flex items-center justify-between w-full border-t'>
                   <input
                     onChange={handleTypeMessage}
                     onKeyUp={sendMessage}
                     ref={messageText}
                     type='text'
                     placeholder='Message'
-                    className='block w-full py-2 pl-4 mx-3 rounded-full outline-none focus:text-gray-700'
+                    className='block w-full py-2 pl-4 mx-3 rounded-full outline-none'
                     name='message'
                     required
                   />
