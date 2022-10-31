@@ -4,6 +4,8 @@ import Pill from '../utils/pills/Pill';
 import dayjs from 'dayjs';
 import StarRating from './StarRating';
 import { useCookies } from 'react-cookie';
+import { useState } from 'react';
+import MessageModal from '../modals/MessageModal';
 
 function TutorCard(props) {
   const {
@@ -21,10 +23,12 @@ function TutorCard(props) {
   const [cookies] = useCookies();
   const { toggleModal, isFull, toggleOpen } = props;
 
+  const [messageModalIsOpen, setMessageModalIsOpen] = useState(false);
+
   const rating = average_rating?.rating__avg?.toFixed(1);
 
   const handleMessageClick = (event) => {
-    toggleOpen();
+    setMessageModalIsOpen(previous => !previous);
   };
 
   return (
@@ -61,11 +65,6 @@ function TutorCard(props) {
             </>
           ) : (
             <>
-              {cookies.user_type !== '2' ? (
-                <OutlinedButton label="Message" action={handleMessageClick} />
-              ) : (
-                ''
-              )}
               <FilledButton label="View" linkTo={tutor_uuid} />
             </>
           )}
@@ -139,6 +138,7 @@ function TutorCard(props) {
           )}
         </div>
       </div>
+      <MessageModal isOpen={messageModalIsOpen} toggleOpen={setMessageModalIsOpen} source='tutor' tutor={id} />
     </div>
   );
 }

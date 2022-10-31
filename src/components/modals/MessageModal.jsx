@@ -7,21 +7,24 @@ import OutlinedButton from '../utils/buttons/OutlinedButton';
 import axios from '../../api/axios';
 
 function MessageModal(props) {
+  console.log(props)
   const navigate = useNavigate();
   const [cookies] = useCookies();
-  const { isOpen, toggleOpen, source, user } = props;
+  const { isOpen, toggleOpen, source, user, tutor } = props;
   const hidden = isOpen ? '' : 'hidden';
   const text =
     source === 'assignment'
       ? 'Send a message about this assignment'
       : 'Send a message to the tutor';
+
   const [form, setForm] = useState({
-    user: user,
-    tutor: cookies.uuid,
+    user: source === 'assignment' ? user : cookies.uuid,
+    tutor: source === 'assignment' ? cookies.uuid : tutor,
     content: '',
     source: source,
-    sender: 't'
+    sender: source === 'assignment' ? 't' : 'u'
   });
+  console.log(form)
   const handleClose = (event) => {
     event.stopPropagation();
     if (event.target?.id === 'top-div' || event.target?.text === 'Cancel') {

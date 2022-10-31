@@ -1,7 +1,6 @@
 import StarRating from './StarRating';
 
 function ReviewCard(props) {
-  console.log(props);
   const { review } = props;
   return (
     <blockquote className="text-titleText p-4 bg-primary rounded">
