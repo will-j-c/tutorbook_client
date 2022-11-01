@@ -2,20 +2,19 @@ import FilledButton from '../utils/buttons/FilledButton';
 import OutlinedButton from '../utils/buttons/OutlinedButton';
 
 function TutorEditForm(props) {
-  console.log(props)
   const { subjects, levels, locations } = props.staticData.current;
   //   const { email, first_name, last_name, profile_img_url } = props.data;
   const handleChange = (event) => {
     if (event.target.type === 'radio') {
-      console.log(event.target.value);
+      // console.log(event.target.value);
     }
     if (event.target.type === 'select-multiple') {
-      console.log(Array.from(event.target.selectedOptions));
+      // console.log(Array.from(event.target.selectedOptions));
       // Turn the HTML collection into an array
       // Iterate over array and set form to new array
     }
     if (event.target.type === 'textarea') {
-      console.log(event.target.value);
+      // console.log(event.target.value);
     }
   };
   return (

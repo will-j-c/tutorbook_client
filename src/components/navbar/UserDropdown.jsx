@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Avatar from '../avatars/Avatar';
 import LogOutButton from '../utils/buttons/LogoutButton';
-import UserProfileCard from '../cards/UserProfileCard';
 import { useCookies } from 'react-cookie';
 
 function UserDropdown() {

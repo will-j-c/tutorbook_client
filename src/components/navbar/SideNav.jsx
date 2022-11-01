@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
-import UserDropdown from './UserDropdown';
 import FilledButton from '../utils/buttons/FilledButton';
 import OutlinedButton from '../utils/buttons/OutlinedButton';
 import LogOutButton from '../utils/buttons/LogoutButton';
