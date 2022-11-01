@@ -17,7 +17,7 @@ function Register(props) {
   const [firstName, setFirstName] = useState('');
   const [lastname, setLastName] = useState('');
   const navigate = useNavigate();
-  const [, setCookie] = useCookies();
+  const [, setCookie, removeCookie] = useCookies();
   const form = {
     first_name: firstName,
     last_name: lastname,
@@ -107,6 +107,10 @@ function Register(props) {
       const idToken = await firebaseUser.user.getIdTokenResult(false);
       const dbUser = await axios.get(`/users/${firebaseUser.user.email}`, {headers: {Authorization: `Bearer ${idToken.token}`}});
       
+      removeCookie('uuid');
+      removeCookie('profile_img_url');
+      removeCookie('user_type');
+
       setCookie('uuid', dbUser.data.user_uuid);
       setCookie('profile_img_url', dbUser.data.profile_img_url);
       setCookie('user_type', dbUser.data.user_type);
