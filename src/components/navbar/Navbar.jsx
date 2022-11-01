@@ -86,7 +86,7 @@ function PageNavbar(props) {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
-            <SideNav open={sidenavIsOpen} setOpen={setSidenavIsOpen} />
+            <SideNav open={sidenavIsOpen} setOpen={setSidenavIsOpen} isLoggedIn={isLoggedIn} toggleModal={toggleModal} />
           </div>
         </div>
       </div>

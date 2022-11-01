@@ -42,7 +42,6 @@ function UserEditForm(props) {
           toast.success('Successfully updated data');
         },
         (error) => {
-          console.log(error);
           toast.error('Failed to update profile');
         }
       );
