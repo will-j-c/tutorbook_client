@@ -8,6 +8,7 @@ function LogOutButton(props) {
   const handleLogout = () => {
     setOpen(false);
     signOut(auth);
+    
     navigate('/');
   };
   return (

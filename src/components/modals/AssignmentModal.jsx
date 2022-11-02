@@ -28,7 +28,6 @@ function AssignmentModal(props) {
   };
 
   const handleChange = (event) => {
-    console.log(event.target.type);
     if (event.target.type === 'text') {
       setForm((previous) => {
         return { ...previous, title: event.target.value };

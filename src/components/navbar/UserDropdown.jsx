@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Avatar from '../avatars/Avatar';
 import LogOutButton from '../utils/buttons/LogoutButton';
-import UserProfileCard from '../cards/UserProfileCard';
 import { useCookies } from 'react-cookie';
 
 function UserDropdown() {
@@ -25,7 +24,7 @@ function UserDropdown() {
             role="menu">
             <div className="p-2 dropdown">
               <Link
-                to={`/users/${cookies.uuid}/edit`}
+                to={`/users/${cookies.uuid}`}
                 className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700 dropdown"
                 role="menuitem">
                 Edit Profile
