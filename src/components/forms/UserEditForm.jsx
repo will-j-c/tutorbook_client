@@ -7,10 +7,12 @@ import { toast } from 'react-toastify';
 import axios from '../../api/axios';
 import Avatar from '../avatars/Avatar';
 import FilledButton from '../utils/buttons/FilledButton';
+import ConfirmProfileDeleteModal from '../modals/ConfirmProfileDeleteModal';
 
 function UserEditForm(props) {
   const [cookies, setCookie] = useCookies();
   const { uuid } = useParams();
+  const [deleteProfileModalIsOpen, setDeleteProfileModalIsOpen] = useState(false);
   const { email, first_name, last_name, profile_img_url } = props.data;
   const [previewImg, setPreviewImg] = useState(profile_img_url);
   const [img, setImg] = useState(null);
@@ -58,11 +60,15 @@ function UserEditForm(props) {
         getDownloadURL(imageRef).then((url) => {
           const toSend = { ...form, profile_img_url: url };
           postUpdate(toSend);
-          setCookie('profile_img_url', url)
+          setCookie('profile_img_url', url);
         });
       });
     }
     postUpdate(form);
+  };
+
+  const toggleOpen = (event) => {
+    setDeleteProfileModalIsOpen((previous) => !previous);
   };
 
   return (
@@ -110,10 +116,16 @@ function UserEditForm(props) {
           </div>
         </div>
 
-        <div className="flex column items-center flex-col justify-between">
+        <div className="flex column items-center justify-center gap-5">
           <FilledButton label="Update user profile" action={updateUserProfile} />
+          <FilledButton label="Delete profile" action={toggleOpen} />
         </div>
       </form>
+      <ConfirmProfileDeleteModal
+        isOpen={deleteProfileModalIsOpen}
+        toggleOpen={toggleOpen}
+        user_uuid={uuid}
+      />
     </div>
   );
 }

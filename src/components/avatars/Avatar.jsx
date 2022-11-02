@@ -1,6 +1,5 @@
 function Avatar(props) {
   const { size, profile_img_url } = props;
-  console.log(props)
   return (
     <div className="relative flex justify-center">
       {profile_img_url && profile_img_url !== 'null' ? (
