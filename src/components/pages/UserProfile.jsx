@@ -47,10 +47,8 @@ function UserProfile() {
 
   useEffect(() => {
     if (userData?.user_type === 2) {
-      
       axios.get('static-data', { headers: { Authorization: `Bearer ${cookies.idToken}` } }).then(
         (response) => {
-          console.log(response.data);
           staticData.current = response.data;
           return;
         },

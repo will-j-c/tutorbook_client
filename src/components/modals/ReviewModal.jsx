@@ -22,7 +22,6 @@ function ReviewModal(props) {
     }
   };
   const handleChange = (event) => {
-    console.log(event.target.type);
     if (event.target.type === 'radio') {
       setForm((previous) => {
         return { ...previous, rating: event.target.value };
@@ -42,7 +41,6 @@ function ReviewModal(props) {
       })
       .then(
         (response) => {
-          console.log(response);
           toggleOpen(false);
         },
         (error) => {

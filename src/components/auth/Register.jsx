@@ -1,7 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signOut } from 'firebase/auth';
 import { auth } from '../../firebaseConfig';
+import { useCookies } from 'react-cookie';
 import FilledButton from '../utils/buttons/FilledButton';
 import RadioGroup from '../utils/radio/RadioGroup';
 import { toast } from 'react-toastify';
@@ -16,7 +17,7 @@ function Register(props) {
   const [firstName, setFirstName] = useState('');
   const [lastname, setLastName] = useState('');
   const navigate = useNavigate();
-
+  const [, setCookie, removeCookie] = useCookies();
   const form = {
     first_name: firstName,
     last_name: lastname,
@@ -102,7 +103,23 @@ function Register(props) {
 
     try {
       const user = await axios.post('/users', form);
-      await createUserWithEmailAndPassword(auth, emailText.toLowerCase(), passwordText);
+      const firebaseUser = await createUserWithEmailAndPassword(auth, emailText.toLowerCase(), passwordText);
+      const idToken = await firebaseUser.user.getIdTokenResult(false);
+      const dbUser = await axios.get(`/users/${firebaseUser.user.email}`, {headers: {Authorization: `Bearer ${idToken.token}`}});
+      
+      removeCookie('uuid');
+      removeCookie('profile_img_url');
+      removeCookie('user_type');
+
+      setCookie('uuid', dbUser.data.user_uuid);
+      setCookie('profile_img_url', dbUser.data.profile_img_url);
+      setCookie('user_type', dbUser.data.user_type);
+
+      if (!dbUser) {
+        signOut(auth);
+        toast.error('Could not sign in');
+        return;
+      }
       setLoading(false);
       toast.success('Account successfully created');
       navigate(`/users/${user.data.user_uuid}`);
