@@ -6,6 +6,7 @@ import StarRating from './StarRating';
 import { useCookies } from 'react-cookie';
 import { useState } from 'react';
 import MessageModal from '../modals/MessageModal';
+import Avatar from '../avatars/Avatar';
 
 function TutorCard(props) {
   const {
@@ -34,19 +35,13 @@ function TutorCard(props) {
   return (
     <div className="relative px-6 bg-primary text-titleText max-w-md mx-auto md:max-w-2xl min-w-0 w-full pb-6 shadow-lg rounded-md mt-16">
       <div className="flex flex-wrap justify-center">
-        <div className="w-full flex justify-center">
-          <div className="relative flex justify-center">
-            <img
-              src={user.profile_img_url}
-              alt="Tutor"
-              className="shadow-xl rounded-full align-middle border border-tertiary -m-14 absolute max-w-[100px]"
-            />
-          </div>
+        <div className="w-full flex justify-center -m-16">
+        <Avatar profile_img_url={user.profile_img_url} size='h-36' />
         </div>
         <div className="w-full text-center mt-10"></div>
       </div>
 
-      <div className="text-center mt-2">
+      <div className="text-center mt-10">
         <h3 className="text-3xl text-secondaryTitleText font-bold leading-normal mb-1">
           {user.first_name}
         </h3>
